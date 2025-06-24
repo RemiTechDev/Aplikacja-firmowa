@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Dokumenty</title></head>
+<body>
+<h2>Twoje dokumenty</h2>
+<form th:action="@{/documents/upload}" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <button type="submit">Wyślij</button>
+</form>
+<table>
+    <tr><th>Nazwa</th><th>Data</th></tr>
+    <tr th:each="doc : ${docs}">
+        <td th:text="${doc.title}"></td>
+        <td th:text="${doc.created}"></td>
+    </tr>
+</table>
+</body>
+</html>

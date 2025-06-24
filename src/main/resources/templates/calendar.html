@@ -1,0 +1,11 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Kalendarz</title></head>
+<body>
+<h2>Spotkania</h2>
+<ul>
+    <li th:each="m : ${meetings}" th:text="'[' + ${m.date} + '] ' + ${m.title}">Spotkanie</li>
+</ul>
+</body>
+</html>
