@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.security.Principal;
 
-@Controller
+    @Controller
 public class DashboardController {
 
     @Autowired private DocumentRepository documentRepository;

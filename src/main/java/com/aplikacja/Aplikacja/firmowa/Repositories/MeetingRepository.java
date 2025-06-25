@@ -1,6 +1,6 @@
 package com.aplikacja.Aplikacja.firmowa.Repositories;
 
-import com.aplikacja.Aplikacja.firmowa.model.Meeting;
+import com.aplikacja.Aplikacja.firmowa.Model.Meeting;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +14,7 @@ public interface MeetingRepository extends JpaRepository<Meeting, Long> {
     // Przykładowa implementacja liczby dzisiejszych spotkań
     default long countByUser_LoginAndToday(String login) {
         return findByUser_Login(login).stream()
-                .filter(m -> m.getDate().toLocalDate().equals(LocalDate.now()))
+                .filter(m -> m.getDateTime().toLocalDate().equals(LocalDate.now()))
                 .count();
     }
 }

@@ -22,4 +22,7 @@ public interface DocumentRepository extends JpaRepository<Document,Long> {
 
     Optional <Document> findDocumentByTitle(String title);
 
+    List<Document> findByUser_Login(String login);
+    long countByUser_Login(String login);
+
 }

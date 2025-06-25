@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikacja Firmowa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Aplikacja Firmowa</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="/documents">Dokumenty</a></li>
+                <li class="nav-item"><a class="nav-link" href="/calendar">Kalendarz</a></li>
+                <li class="nav-item"><a class="nav-link" href="/about">O aplikacji</a></li>
+                <li class="nav-item"><a class="nav-link" href="/logout">Wyloguj</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div th:if="${#httpServletRequest.requestURI == '/'}">
+        <h1 class="text-center">Witamy w aplikacji firmowej!</h1>
+        <p class="text-center">Zaloguj się, aby zarządzać dokumentami i spotkaniami.</p>
+    </div>
+
+    <div th:if="${#httpServletRequest.requestURI == '/dashboard'}">
+        <h2>Panel użytkownika</h2>
+        <p>Liczba dokumentów: <span th:text="${docCount}">0</span></p>
+        <p>Dzisiejsze spotkania: <span th:text="${meetingCount}">0</span></p>
+    </div>
+
+    <div th:if="${#httpServletRequest.requestURI == '/documents'}">
+        <h2>Dokumenty</h2>
+        <form th:action="@{/documents/upload}" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" class="form-control mb-2">
+            <button type="submit" class="btn btn-primary">Wyślij</button>
+        </form>
+        <table class="table table-striped">
+            <thead><tr><th>Nazwa</th><th>Data</th></tr></thead>
+            <tbody>
+            <tr th:each="doc : ${docs}">
+                <td th:text="${doc.title}"></td>
+                <td th:text="${#dates.format(doc.created, 'yyyy-MM-dd HH:mm')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:if="${#httpServletRequest.requestURI == '/calendar'}">
+        <h2>Kalendarz spotkań</h2>
+        <ul class="list-group">
+            <li class="list-group-item" th:each="m : ${meetings}" th:text="${m.dateTime} + ' - ' + ${m.title}"></li>
+        </ul>
+    </div>
+
+    <div th:if="${#httpServletRequest.requestURI == '/about'}">
+        <h2>O aplikacji</h2>
+        <p>To jest przykładowy tekst o aplikacji firmowej. Tutaj znajdzie się opis działania systemu, jego możliwości i sposób działania. Zmienisz go później według własnych potrzeb.</p>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
