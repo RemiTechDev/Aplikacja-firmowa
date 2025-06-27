@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.security.Principal;
 
-    @Controller
+@Controller
 public class CalendarController {
 
     @Autowired private MeetingRepository meetingRepository;
@@ -16,6 +16,6 @@ public class CalendarController {
     @GetMapping("/calendar")
     public String calendar(Model model, Principal principal) {
         model.addAttribute("meetings", meetingRepository.findByUser_Login(principal.getName()));
-        return "calendar";
+        return "layout";
     }
 }

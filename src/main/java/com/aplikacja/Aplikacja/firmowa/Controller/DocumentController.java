@@ -1,59 +1,50 @@
 package com.aplikacja.Aplikacja.firmowa.Controller;
 
-import com.aplikacja.Aplikacja.firmowa.Dto.DocumentDto;
-import com.aplikacja.Aplikacja.firmowa.Mapper.DocumentMapper;
 import com.aplikacja.Aplikacja.firmowa.Model.Document;
-import com.aplikacja.Aplikacja.firmowa.Service.DocumentService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
+import com.aplikacja.Aplikacja.firmowa.Model.User;
+import com.aplikacja.Aplikacja.firmowa.Repositories.DocumentRepository;
+import com.aplikacja.Aplikacja.firmowa.Repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.*;
+import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 
-
-@CrossOrigin("*")
-@RestController
-@RequiredArgsConstructor
-@RequestMapping("/document")
+@Controller
 public class DocumentController {
 
-    private final DocumentService documentService;
-    private final DocumentMapper documentMapper;
+    @Autowired private DocumentRepository documentRepository;
+    @Autowired private UserRepository userRepository;
 
-    @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public Long addDocument(@RequestBody DocumentDto documentDto) {
-        return documentService.addNewDocument(documentMapper
-                .mapToDocument(documentDto)).getId();
+    @GetMapping("/documents")
+    public String documents(Model model, Principal principal) {
+        List<Document> docs = documentRepository.findByUser_Login(principal.getName());
+        model.addAttribute("docs", docs);
+        return "layout";
     }
 
-    @GetMapping("{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public DocumentDto getDocument(@PathVariable Long id) {
-        return documentMapper.mapToDocumentDto(documentService.findById(id));
+    @PostMapping("/documents/upload")
+    public String upload(@RequestParam("file") MultipartFile file, Principal principal) throws IOException {
+        Path path = Paths.get("uploads/" + file.getOriginalFilename());
+        Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+
+        User user = userRepository.findByLogin(principal.getName()).orElse(null);
+        if (user != null) {
+            Document doc = Document.builder()
+                    .title(file.getOriginalFilename())
+                    .filePath(path.toString())
+                    .created(LocalDateTime.now())
+                    .user(user)
+                    .build();
+            documentRepository.save(doc);
+        }
+
+        return "redirect:/documents";
     }
-
-    @GetMapping
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public List<DocumentDto> getAll() {
-        return documentMapper.mapToDocumentDtoList(documentService.getAll());
-    }
-
-    @DeleteMapping("{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public void deleteDocument(@PathVariable Long id) {
-        documentService.deleteById(id);
-    }
-
-    @PutMapping("{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public DocumentDto editDocument(@PathVariable Long id, @RequestBody DocumentDto documentDto) {
-        Document document = documentService.findById(id);
-        document.setTitle(documentDto.getTitle());
-        document.setDescription(documentDto.getDescription());
-        return documentMapper.mapToDocumentDto(documentService.save(document));
-
-    }
-
-
 }

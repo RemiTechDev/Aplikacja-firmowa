@@ -12,7 +12,13 @@
 	<artifactId>Aplikacja-firmowa</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Aplikacja-firmowa</name>
-	<description>Aplikacja dla małych, średnch jak i dużych firm</description>
+	<description>Aplikacja dla małych, średnch jak i dużych firm
+        Autor: Tomasz Moch Repozytorium źródłowe: https://github.com/Szarl3j/Aplikacja-firmowa
+        Data rozpoczęcia: 04.03. 2021 rok
+
+        All rights reserved.
+
+        This source code is part of a private engineering project and is protected under copyright law.</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
