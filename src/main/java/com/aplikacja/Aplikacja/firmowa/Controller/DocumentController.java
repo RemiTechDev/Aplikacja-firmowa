@@ -26,7 +26,7 @@ public class DocumentController {
     public String documents(Model model, Principal principal) {
         List<Document> docs = documentRepository.findByUser_Login(principal.getName());
         model.addAttribute("docs", docs);
-        return "layout";
+        return "index";
     }
 
     @PostMapping("/documents/upload")

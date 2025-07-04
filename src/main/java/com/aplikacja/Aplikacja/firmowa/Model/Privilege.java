@@ -6,22 +6,21 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name= "roles")
-public class Role {
+@Table(name = "privileges")
+public class Privilege {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(length = 20)
-    private ERoles name;
+    @Column(length = 50, unique = true, nullable = false)
+    private String name;
 
-    public Role(ERoles name) {
+    public Privilege(String name) {
         this.name = name;
     }
 }

@@ -19,6 +19,6 @@ public class DashboardController {
     public String dashboard(Model model, Principal principal) {
         model.addAttribute("docCount", documentRepository.countByUser_Login(principal.getName()));
         model.addAttribute("meetingCount", meetingRepository.countByUser_LoginAndToday(principal.getName()));
-        return "layout";
+        return "index";
     }
 }

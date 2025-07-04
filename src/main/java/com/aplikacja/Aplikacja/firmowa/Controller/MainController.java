@@ -9,22 +9,15 @@ public class MainController {
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("message", "Witaj w aplikacji firmowej!");
-        return "layout";
+//        model.addAttribute("content", "index :: content");
+        model.addAttribute("title", "Strona Główna");
+        return "index";
     }
 
     @GetMapping("/about")
-    public String about() {
-        return "layout";
+    public String about(Model model) {
+        model.addAttribute("content", "about :: content");
+        model.addAttribute("title", "O aplikacji");
+        return "about";
     }
-
-//    @GetMapping("/login")
-//    public String login() {
-//        return "login";
-//    }
-
-//    @GetMapping("/register")
-//    public String register() {
-//        return "register";
-//    }
 }

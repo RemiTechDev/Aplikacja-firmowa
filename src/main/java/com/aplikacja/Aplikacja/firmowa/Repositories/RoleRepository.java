@@ -1,3 +1,4 @@
+
 package com.aplikacja.Aplikacja.firmowa.Repositories;
 
 import com.aplikacja.Aplikacja.firmowa.Model.Role;

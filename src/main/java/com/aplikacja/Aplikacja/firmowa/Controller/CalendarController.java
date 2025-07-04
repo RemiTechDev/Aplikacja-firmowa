@@ -16,6 +16,6 @@ public class CalendarController {
     @GetMapping("/calendar")
     public String calendar(Model model, Principal principal) {
         model.addAttribute("meetings", meetingRepository.findByUser_Login(principal.getName()));
-        return "layout";
+        return "index";
     }
 }

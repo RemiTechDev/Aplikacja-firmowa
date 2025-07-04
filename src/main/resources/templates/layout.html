@@ -1,106 +1,41 @@
-<!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplikacja Firmowa</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { padding-top: 70px; }
-        footer { margin-top: 3rem; padding: 1rem; background-color: #f8f9fa; text-align: center; }
-    </style>
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">Aplikacja Firmowa</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
-                    <a class="nav-link" href="/dashboard">Dashboard</a>
-                </li>
-                <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
-                    <a class="nav-link" href="/documents">Dokumenty</a>
-                </li>
-                <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
-                    <a class="nav-link" href="/calendar">Kalendarz</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">O aplikacji</a>
-                </li>
-                <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
-                    <a class="nav-link" href="/logout">Wyloguj</a>
-                </li>
-                <li class="nav-item" th:if="${#authorization.expression('!isAuthenticated()')}">
-                    <a class="nav-link" href="/login">Zaloguj się</a>
-                </li>
-                <li class="nav-item" th:if="${#authorization.expression('!isAuthenticated()')}">
-                    <a class="nav-link" href="/register">Zarejestruj się</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<!--&lt;!&ndash; templates/layout.html &ndash;&gt;-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="pl" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title th:text="${title}">Aplikacja Firmowa</title>-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">-->
+<!--    <style>-->
+<!--        body { background: #f8f9fa; padding-top: 4rem; font-family: 'Segoe UI', sans-serif; }-->
+<!--        .hero { background: white; padding: 3rem; border-radius: 1rem; box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1); animation: fadeIn 1s ease-in; }-->
+<!--        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow">-->
+<!--    <div class="container-fluid">-->
+<!--        <a class="navbar-brand" th:href="@{/}">Aplikacja</a>-->
+<!--        <div class="collapse navbar-collapse justify-content-end">-->
+<!--            <ul class="navbar-nav">-->
+<!--                <li class="nav-item"><a class="nav-link" th:href="@{/dashboard}">Dashboard</a></li>-->
+<!--                <li class="nav-item"><a class="nav-link" th:href="@{/documents}">Dokumenty</a></li>-->
+<!--                <li class="nav-item"><a class="nav-link" th:href="@{/calendar}">Kalendarz</a></li>-->
+<!--                <li class="nav-item"><a class="nav-link" th:href="@{/login}">Logowanie</a></li>-->
+<!--                <li class="nav-item"><a class="nav-link" th:href="@{/register}">Rejestracja</a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
 
-<div class="container">
-    <!-- Strona główna -->
-    <div th:if="${#httpServletRequest.requestURI == '/'}">
-        <h1 class="text-center mt-4">[[${message}]]</h1>
-        <p class="text-center">Zaloguj się, aby zarządzać dokumentami i spotkaniami.</p>
-    </div>
+<!--<main class="container" th:fragment="layout">-->
+<!--    <div th:replace="~{::content}">Brak treści</div>-->
+<!--</main>-->
 
-    <!-- Dashboard -->
-    <div th:if="${#httpServletRequest.requestURI == '/dashboard'}">
-        <h2>Panel użytkownika</h2>
-        <p>Liczba dokumentów: <span th:text="${docCount}">0</span></p>
-        <p>Dzisiejsze spotkania: <span th:text="${meetingCount}">0</span></p>
-    </div>
+<!--<footer class="text-center mt-4 text-muted">-->
+<!--    &copy; 2025 Aplikacja Firmowa-->
+<!--</footer>-->
 
-    <!-- Dokumenty -->
-    <div th:if="${#httpServletRequest.requestURI == '/documents'}">
-        <h2>Twoje dokumenty</h2>
-        <form th:action="@{/documents/upload}" method="post" enctype="multipart/form-data" class="mb-3">
-            <input type="file" name="file" class="form-control mb-2">
-            <button type="submit" class="btn btn-primary">Wyślij dokument</button>
-        </form>
-        <table class="table table-bordered table-striped">
-            <thead><tr><th>Tytuł</th><th>Data</th></tr></thead>
-            <tbody>
-            <tr th:each="doc : ${docs}">
-                <td th:text="${doc.title}"></td>
-                <td th:text="${#dates.format(doc.created, 'yyyy-MM-dd HH:mm')}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Kalendarz -->
-    <div th:if="${#httpServletRequest.requestURI == '/calendar'}">
-        <h2>Terminarz spotkań</h2>
-        <ul class="list-group">
-            <li class="list-group-item" th:each="m : ${meetings}" th:text="${m.dateTime} + ' - ' + ${m.title}"></li>
-        </ul>
-    </div>
-
-    <!-- O aplikacji -->
-    <div th:if="${#httpServletRequest.requestURI == '/about'}">
-        <h2>O aplikacji</h2>
-        <p>Ta aplikacja firmowa została stworzona w celu zarządzania dokumentami, spotkaniami oraz usprawnienia
-            wewnętrznej organizacji pracy. Opis zostanie dostosowany do konkretnej firmy lub instytucji.</p>
-        <p><strong>Autor:</strong> Tomasz Moch<br>
-            <strong>Repozytorium źródłowe:</strong> <a href="https://github.com/Szarl3j/Aplikacja-firmowa" target="_blank">github.com/Szarl3j/Aplikacja-firmowa</a><br>
-            <strong>Data rozpoczęcia:</strong> 04.03.2021<br>
-            <strong>Informacje prawne:</strong> All rights reserved. This source code is part of a private engineering project and is protected under copyright law.</p>
-    </div>
-</div>
-
-<footer>
-    <p>&copy; 2025 Aplikacja Firmowa. Wszelkie prawa zastrzeżone.</p>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--</body>-->
+<!--</html>-->

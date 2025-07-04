@@ -18,10 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity(debug = true)
-@EnableGlobalMethodSecurity(
-        // securedEnabled = true,
-        // jsr250Enabled = true,
-        prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -36,9 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder.userDetailsService(userDetailsServiceImpl).passwordEncoder(
-                passwordEncoder());
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -50,17 +46,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().ignoringAntMatchers("/h2-console/**").disable()
+                .headers().frameOptions().disable() // dla H2
+
+                .and()
+                .exceptionHandling().authenticationEntryPoint(unauthorize)
+
+                .and()
                 .authorizeRequests()
-                .antMatchers("/user/authorize/register", "/home").permitAll()
-                .antMatchers("/user/authorize/register").permitAll()
-                .anyRequest().permitAll()
+
+                .antMatchers(
+                        "/", "/login", "/register", "/user/authorize/**", "/about", "/error",
+                        "/h2-console/**",
+                        "/css/**", "/js/**", "/images/**", "/webjars/**", "/favicon.ico"
+                ).permitAll()
+
+                .anyRequest().authenticated()
+
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .defaultSuccessUrl("/dashboard", true)
                 .permitAll()
+
                 .and()
                 .logout()
+                .logoutSuccessUrl("/login?logout")
                 .permitAll();
+
         http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
