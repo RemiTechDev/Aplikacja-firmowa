@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f55d2bdd-bc05-4465-adb1-94abfd5dec11" name="Changes" comment="naprawiono błędy zwiazane z SetUpDataloader. Klasa nie ma już błędów + klasa nie jest już podwójna&#10;dodano nowe role w ERoles&#10;Poprawiono PrivilegeRepositiry">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/service/MyUserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/CalendarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/CalendarController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/SetupDataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/SetupDataLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/service/UserDetailsImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/service/UserDetailsImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/calendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/calendar.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Szarl3j&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Szarl3j/Aplikacja-firmowa.git&quot;,
+    &quot;accountId&quot;: &quot;80db98fa-755e-4ffe-b5e5-1bddd2ef196b&quot;
+  }
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2y5Ytc1AZYFqoTJ8z75oLEN5Ahu" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.AplikacjaFirmowaApplication.executor&quot;: &quot;Run&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/hrabi/IdeaProjects/Aplikacja-firmowa&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.language&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Admin\\IdeaProjects\\Aplikacja-firmowa\\src\\main\\resources\\frontend\\angular-app\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Admin\IdeaProjects\Aplikacja-firmowa\src\main\resources\static\css\css" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="AplikacjaFirmowaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-24" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="Aplikacja-firmowa" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.aplikacja.Aplikacja.firmowa.AplikacjaFirmowaApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.23591.19" />
+        <option value="bundled-js-predefined-d6986cc7102b-6be00b7b0f42-JavaScript-IU-252.23591.19" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f55d2bdd-bc05-4465-adb1-94abfd5dec11" name="Changes" comment="" />
+      <created>1749126117651</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1749126117651</updated>
+      <workItem from="1749126119472" duration="67000" />
+      <workItem from="1749130310094" duration="35000" />
+      <workItem from="1750764588186" duration="814000" />
+      <workItem from="1750765825176" duration="3863000" />
+      <workItem from="1750832279711" duration="5665000" />
+      <workItem from="1750852917497" duration="266000" />
+      <workItem from="1750853350650" duration="1044000" />
+      <workItem from="1750963284003" duration="1797000" />
+      <workItem from="1751002233992" duration="479000" />
+      <workItem from="1751008743622" duration="786000" />
+      <workItem from="1751009677614" duration="695000" />
+      <workItem from="1751010992899" duration="688000" />
+      <workItem from="1751012000014" duration="417000" />
+      <workItem from="1751099147299" duration="836000" />
+      <workItem from="1751135433235" duration="2624000" />
+      <workItem from="1751143671802" duration="6289000" />
+      <workItem from="1751179017606" duration="4383000" />
+      <workItem from="1751184935917" duration="1285000" />
+      <workItem from="1751264292096" duration="3520000" />
+      <workItem from="1751530347255" duration="1637000" />
+      <workItem from="1751610100933" duration="10759000" />
+      <workItem from="1751624273903" duration="1107000" />
+      <workItem from="1751625581689" duration="4236000" />
+      <workItem from="1751861946384" duration="5488000" />
+      <workItem from="1751869327067" duration="4983000" />
+    </task>
+    <task id="LOCAL-00001" summary="naprawiono problem z wyświetlaniem strony powitalnej&#10;dodano opcje zakłądania konta i logowania&#10;dodano możliwość kalendarza wraz z dokumentami i dashboardem&#10;Dodano nowe kontrolery">
+      <option name="closed" value="true" />
+      <created>1750771292764</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1750771292764</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Dodano nowe klasy odpowiedzialne za kalendarz, meeting dashboard.&#10;przebudowano klasę document&#10;Dodano layout.html&#10;Aktualizacja lomboka w pom.xml">
+      <option name="closed" value="true" />
+      <created>1750841707747</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1750841707747</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Dodano informację typu licencyjnego.&#10;Przebudowa layout, login i register html">
+      <option name="closed" value="true" />
+      <created>1751011085582</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1751011085582</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Przywrócenie niektórych klas do stanu pierwotnego&#10;Lepsza obsługa strony głównej (ładny podstawowy interfejs.&#10;Podstawowa konfiguracja nowych kontrolerów (jeszcze nie wszystkie zaimplementowane)&#10;dodano plik html do obsługi błędów.&#10;Próba zaimplementowania klas odpowiedzialnych za uprawnienia ( w trakcie tworzenia">
+      <option name="closed" value="true" />
+      <created>1751627142696</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1751627142696</updated>
+    </task>
+    <task id="LOCAL-00005" summary="naprawiono błędy zwiazane z SetUpDataloader. Klasa nie ma już błędów + klasa nie jest już podwójna&#10;dodano nowe role w ERoles&#10;Poprawiono PrivilegeRepositiry">
+      <option name="closed" value="true" />
+      <created>1751866459723</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1751866459723</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="naprawiono problem z wyświetlaniem strony powitalnej&#10;dodano opcje zakłądania konta i logowania&#10;dodano możliwość kalendarza wraz z dokumentami i dashboardem&#10;Dodano nowe kontrolery" />
+    <MESSAGE value="Dodano nowe klasy odpowiedzialne za kalendarz, meeting dashboard.&#10;przebudowano klasę document&#10;Dodano layout.html&#10;Aktualizacja lomboka w pom.xml" />
+    <MESSAGE value="Dodano informację typu licencyjnego.&#10;Przebudowa layout, login i register html" />
+    <MESSAGE value="Przywrócenie niektórych klas do stanu pierwotnego&#10;Lepsza obsługa strony głównej (ładny podstawowy interfejs.&#10;Podstawowa konfiguracja nowych kontrolerów (jeszcze nie wszystkie zaimplementowane)&#10;dodano plik html do obsługi błędów.&#10;Próba zaimplementowania klas odpowiedzialnych za uprawnienia ( w trakcie tworzenia" />
+    <MESSAGE value="naprawiono błędy zwiazane z SetUpDataloader. Klasa nie ma już błędów + klasa nie jest już podwójna&#10;dodano nowe role w ERoles&#10;Poprawiono PrivilegeRepositiry" />
+    <option name="LAST_COMMIT_MESSAGE" value="naprawiono błędy zwiazane z SetUpDataloader. Klasa nie ma już błędów + klasa nie jest już podwójna&#10;dodano nowe role w ERoles&#10;Poprawiono PrivilegeRepositiry" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

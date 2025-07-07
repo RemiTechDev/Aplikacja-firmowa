@@ -15,7 +15,12 @@ public class CalendarController {
 
     @GetMapping("/calendar")
     public String calendar(Model model, Principal principal) {
-        model.addAttribute("meetings", meetingRepository.findByUser_Login(principal.getName()));
+        if(principal != null) {
+            model.addAttribute("meetings", meetingRepository.findByUser_Login(principal.getName()));
+        }else {
+            model.addAttribute("meetings", null);
+            model.addAttribute("Nie zalogowany", true);
+        }
         return "index";
     }
 }

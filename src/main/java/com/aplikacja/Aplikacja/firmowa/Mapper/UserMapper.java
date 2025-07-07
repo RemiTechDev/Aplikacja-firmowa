@@ -49,7 +49,7 @@ public class UserMapper {
                 .lastName(userDto.getLastName())
                 .email(userDto.getEmail())
                 .password(encoder.encode(userDto.getPassword()))
-                .role(roles)
+                .roles(roles)
                 .build();
     }
 
@@ -67,13 +67,14 @@ public class UserMapper {
     }
 
     public UserDto mapToUserDto(User user) {
-        Set<String> roles = user.getRole().stream()
+        Set<String> roles = user.getRoles().stream()
                 .map(role -> role.getName().name())
                 .collect(Collectors.toSet());
 
         return new UserDto(
                 user.getLogin(),
                 user.getFirstName(),
+
                 user.getLastName(),
                 user.getEmail(),
                 roles,

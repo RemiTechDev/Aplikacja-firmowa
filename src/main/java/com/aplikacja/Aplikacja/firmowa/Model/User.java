@@ -17,6 +17,7 @@ import java.util.*;
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,40 +36,42 @@ public class User {
 
     private boolean enabled;
 
-
     @NotBlank
     @Email
     private String email;
+
     private LocalDateTime signUpDate;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Role> role = new HashSet<>();
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
     @Builder
     public User(String firstName, String lastName, String login, String password, String email,
-                Set<Role> role) {
+                Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.login = login;
         this.password = password;
         this.email = email;
-        this.role = role;
+        this.roles = roles;
         this.signUpDate = LocalDateTime.now();
-
+        this.enabled = true;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return firstName.equals(user.firstName) && lastName.equals(user.lastName) &&
-                email.equals(user.email);
+        if (!(o instanceof User user)) return false;
+        return email.equals(user.email);
     }
 
+    @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, email);
+        return Objects.hash(email);
     }
-    private Collection<Role>roles;
-
 }

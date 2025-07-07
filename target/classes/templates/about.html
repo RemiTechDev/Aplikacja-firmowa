@@ -1,0 +1,62 @@
+<!-- index.html -->
+<div th:fragment="content">
+    <div class="text-center mt-5">
+        <h1 class="display-4" th:text="${message}">Witaj w aplikacji firmowej!</h1>
+        <p class="lead">Zarządzaj dokumentami, spotkaniami i organizacją swojej firmy w jednym miejscu.</p>
+    </div>
+
+    <div class="row text-center mt-5">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">📊 Dashboard</h5>
+                    <p class="card-text">Podsumowanie Twoich dokumentów i spotkań.</p>
+                    <a href="/dashboard" class="btn btn-primary">Przejdź</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">📁 Dokumenty</h5>
+                    <p class="card-text">Zarządzaj i przesyłaj ważne dokumenty firmowe.</p>
+                    <a href="/documents" class="btn btn-primary">Przejdź</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">📅 Kalendarz</h5>
+                    <p class="card-text">Sprawdź zaplanowane spotkania i wydarzenia.</p>
+                    <a href="/calendar" class="btn btn-primary">Przejdź</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center mt-4">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">🔐 Logowanie</h5>
+                    <p class="card-text">Zaloguj się, aby korzystać z pełnych funkcji aplikacji.</p>
+                    <a href="/login" class="btn btn-secondary">Zaloguj się</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">🆕 Rejestracja</h5>
+                    <p class="card-text">Nie masz jeszcze konta? Zarejestruj się teraz.</p>
+                    <a href="/register" class="btn btn-success">Zarejestruj się</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="/about" class="btn btn-outline-dark">ℹ️ Dowiedz się więcej o aplikacji</a>
+    </div>
+</div>

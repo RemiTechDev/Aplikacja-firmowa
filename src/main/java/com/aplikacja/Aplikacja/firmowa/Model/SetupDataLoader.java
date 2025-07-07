@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class SetupDataLoader implements
@@ -57,7 +58,7 @@ public class SetupDataLoader implements
         user.setLastName("Test");
         user.setPassword(passwordEncoder.encode("test"));
         user.setEmail("test@test.com");
-        user.setRoles(Arrays.asList(adminRole));
+        user.setRoles(Set.of(adminRole));
         user.setEnabled(true);
         userRepository.save(user);
 
