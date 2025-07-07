@@ -33,6 +33,9 @@ public class User {
     @NotBlank
     private String password;
 
+    private boolean enabled;
+
+
     @NotBlank
     @Email
     private String email;
@@ -66,5 +69,6 @@ public class User {
     public int hashCode() {
         return Objects.hash(firstName, lastName, email);
     }
+    private Collection<Role>roles;
 
 }
