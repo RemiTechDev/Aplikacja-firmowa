@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f55d2bdd-bc05-4465-adb1-94abfd5dec11" name="Changes" comment="naprawiono błędy zwiazane z SetUpDataloader. Klasa nie ma już błędów + klasa nie jest już podwójna&#10;dodano nowe role w ERoles&#10;Poprawiono PrivilegeRepositiry">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/service/MyUserDetailsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/CalendarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/CalendarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/SetupDataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/SetupDataLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/UserRepository.java" afterDir="false" />
+    <list default="true" id="f55d2bdd-bc05-4465-adb1-94abfd5dec11" name="Changes" comment="Ciągłe rozwijanie funkcji zwiazanej z uprawnieniami użytkownika tj: ustalanie ról czy dostęp do konkretnych funkcji w aplikacji&#10;- dla niezalogowanych&#10;- dla zalogowanych&#10;Rozwijanie frontendu. Próba dodania kalendarza, który jest ogólnodostępny ( podgląd daty i godziny) ale nie można dodawać spotkań lub wydarzeń dopóki użytkownik nie będzie zalogowany.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/service/UserDetailsImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/service/UserDetailsImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/calendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/calendar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,6 +142,8 @@
       <workItem from="1751625581689" duration="4236000" />
       <workItem from="1751861946384" duration="5488000" />
       <workItem from="1751869327067" duration="4983000" />
+      <workItem from="1751888534666" duration="241000" />
+      <workItem from="1751953640883" duration="2571000" />
     </task>
     <task id="LOCAL-00001" summary="naprawiono problem z wyświetlaniem strony powitalnej&#10;dodano opcje zakłądania konta i logowania&#10;dodano możliwość kalendarza wraz z dokumentami i dashboardem&#10;Dodano nowe kontrolery">
       <option name="closed" value="true" />
@@ -191,7 +185,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751866459723</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Ciągłe rozwijanie funkcji zwiazanej z uprawnieniami użytkownika tj: ustalanie ról czy dostęp do konkretnych funkcji w aplikacji&#10;- dla niezalogowanych&#10;- dla zalogowanych&#10;Rozwijanie frontendu. Próba dodania kalendarza, który jest ogólnodostępny ( podgląd daty i godziny) ale nie można dodawać spotkań lub wydarzeń dopóki użytkownik nie będzie zalogowany.">
+      <option name="closed" value="true" />
+      <created>1751888741165</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1751888741165</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -203,7 +205,8 @@
     <MESSAGE value="Dodano informację typu licencyjnego.&#10;Przebudowa layout, login i register html" />
     <MESSAGE value="Przywrócenie niektórych klas do stanu pierwotnego&#10;Lepsza obsługa strony głównej (ładny podstawowy interfejs.&#10;Podstawowa konfiguracja nowych kontrolerów (jeszcze nie wszystkie zaimplementowane)&#10;dodano plik html do obsługi błędów.&#10;Próba zaimplementowania klas odpowiedzialnych za uprawnienia ( w trakcie tworzenia" />
     <MESSAGE value="naprawiono błędy zwiazane z SetUpDataloader. Klasa nie ma już błędów + klasa nie jest już podwójna&#10;dodano nowe role w ERoles&#10;Poprawiono PrivilegeRepositiry" />
-    <option name="LAST_COMMIT_MESSAGE" value="naprawiono błędy zwiazane z SetUpDataloader. Klasa nie ma już błędów + klasa nie jest już podwójna&#10;dodano nowe role w ERoles&#10;Poprawiono PrivilegeRepositiry" />
+    <MESSAGE value="Ciągłe rozwijanie funkcji zwiazanej z uprawnieniami użytkownika tj: ustalanie ról czy dostęp do konkretnych funkcji w aplikacji&#10;- dla niezalogowanych&#10;- dla zalogowanych&#10;Rozwijanie frontendu. Próba dodania kalendarza, który jest ogólnodostępny ( podgląd daty i godziny) ale nie można dodawać spotkań lub wydarzeń dopóki użytkownik nie będzie zalogowany." />
+    <option name="LAST_COMMIT_MESSAGE" value="Ciągłe rozwijanie funkcji zwiazanej z uprawnieniami użytkownika tj: ustalanie ról czy dostęp do konkretnych funkcji w aplikacji&#10;- dla niezalogowanych&#10;- dla zalogowanych&#10;Rozwijanie frontendu. Próba dodania kalendarza, który jest ogólnodostępny ( podgląd daty i godziny) ale nie można dodawać spotkań lub wydarzeń dopóki użytkownik nie będzie zalogowany." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
