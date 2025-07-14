@@ -4,10 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f55d2bdd-bc05-4465-adb1-94abfd5dec11" name="Changes" comment="Ciąg dalszy nadawania uprawnień - ustawienie hierarchii ról do bardziej wydajnego zarządzania pracownikami">
+    <list default="true" id="f55d2bdd-bc05-4465-adb1-94abfd5dec11" name="Changes" comment="Nowe zmiany wprowadzające:&#10;1. UserService registerNewUser&#10;2. W UserServiceImpl funkcja z punktu pierwszego została rozbudowana, aby uniknąć podwójnej logiki w kodzie.&#10;registerNewUser jest bardziej wydajna">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Validation/PasswordMatches.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Validation/PasswordMatchesValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Validation/PasswordValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Validation/ValidPassword.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Dto/UserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/SetupDataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/SetupDataLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Service/Implementation/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Service/Implementation/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/service/UserDetailsImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/service/UserDetailsImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/service/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/service/UserDetailsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +37,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -144,7 +163,11 @@
       <workItem from="1751861946384" duration="5488000" />
       <workItem from="1751869327067" duration="4983000" />
       <workItem from="1751888534666" duration="241000" />
-      <workItem from="1751953640883" duration="6341000" />
+      <workItem from="1751953640883" duration="7229000" />
+      <workItem from="1751963378472" duration="948000" />
+      <workItem from="1752040851262" duration="11191000" />
+      <workItem from="1752128203218" duration="13357000" />
+      <workItem from="1752476930081" duration="5194000" />
     </task>
     <task id="LOCAL-00001" summary="naprawiono problem z wyświetlaniem strony powitalnej&#10;dodano opcje zakłądania konta i logowania&#10;dodano możliwość kalendarza wraz z dokumentami i dashboardem&#10;Dodano nowe kontrolery">
       <option name="closed" value="true" />
@@ -202,7 +225,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751956292474</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Nowe zmiany wprowadzające:&#10;1. UserService registerNewUser&#10;2. W UserServiceImpl funkcja z punktu pierwszego została rozbudowana, aby uniknąć podwójnej logiki w kodzie.&#10;registerNewUser jest bardziej wydajna">
+      <option name="closed" value="true" />
+      <created>1751960355308</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1751960355308</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,7 +247,19 @@
     <MESSAGE value="naprawiono błędy zwiazane z SetUpDataloader. Klasa nie ma już błędów + klasa nie jest już podwójna&#10;dodano nowe role w ERoles&#10;Poprawiono PrivilegeRepositiry" />
     <MESSAGE value="Ciągłe rozwijanie funkcji zwiazanej z uprawnieniami użytkownika tj: ustalanie ról czy dostęp do konkretnych funkcji w aplikacji&#10;- dla niezalogowanych&#10;- dla zalogowanych&#10;Rozwijanie frontendu. Próba dodania kalendarza, który jest ogólnodostępny ( podgląd daty i godziny) ale nie można dodawać spotkań lub wydarzeń dopóki użytkownik nie będzie zalogowany." />
     <MESSAGE value="Ciąg dalszy nadawania uprawnień - ustawienie hierarchii ról do bardziej wydajnego zarządzania pracownikami" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ciąg dalszy nadawania uprawnień - ustawienie hierarchii ról do bardziej wydajnego zarządzania pracownikami" />
+    <MESSAGE value="Nowe zmiany wprowadzające:&#10;1. UserService registerNewUser&#10;2. W UserServiceImpl funkcja z punktu pierwszego została rozbudowana, aby uniknąć podwójnej logiki w kodzie.&#10;registerNewUser jest bardziej wydajna" />
+    <option name="LAST_COMMIT_MESSAGE" value="Nowe zmiany wprowadzające:&#10;1. UserService registerNewUser&#10;2. W UserServiceImpl funkcja z punktu pierwszego została rozbudowana, aby uniknąć podwójnej logiki w kodzie.&#10;registerNewUser jest bardziej wydajna" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/CalendarController.java</url>
+          <line>10</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

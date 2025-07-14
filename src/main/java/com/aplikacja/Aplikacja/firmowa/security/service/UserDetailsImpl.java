@@ -19,6 +19,10 @@ public class UserDetailsImpl implements UserDetails {
 
     private String username;
 
+    private String firstName;
+
+    private String lastName;
+
     private String email;
 
     @JsonIgnore
@@ -27,9 +31,12 @@ public class UserDetailsImpl implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
 
     public UserDetailsImpl(Long id, String username, String email, String password,
+                           String firstName, String lastName,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.authorities = authorities;
@@ -37,7 +44,7 @@ public class UserDetailsImpl implements UserDetails {
 
     public static UserDetailsImpl build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName().name()))
                 .collect(Collectors.toList());
 
         return new UserDetailsImpl(
@@ -45,6 +52,8 @@ public class UserDetailsImpl implements UserDetails {
                 user.getLogin(),
                 user.getEmail(),
                 user.getPassword(),
+                user.getFirstName(),
+                user.getLastName(),
                 authorities);
     }
 
@@ -69,6 +78,16 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public String getUsername() {
         return username;
+    }
+
+
+    public String getFirstName(){
+        return firstName;
+    }
+
+
+    public String getLastName(){
+        return lastName;
     }
 
     @Override
@@ -100,5 +119,6 @@ public class UserDetailsImpl implements UserDetails {
         UserDetailsImpl user = (UserDetailsImpl) o;
         return Objects.equals(id, user.id);
     }
+
 
 }

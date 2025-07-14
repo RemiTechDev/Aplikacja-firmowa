@@ -1,6 +1,5 @@
-<!-- templates/index.html -->
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title th:text="${title}">Strona główna</title>
@@ -17,6 +16,16 @@
         .hero { background: white; padding: 3rem; border-radius: 1rem; box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1); animation: fadeIn 1s ease-in; }
         .btn-custom { min-width: 180px; margin: 0.3rem; transition: transform 0.2s ease; }
         .btn-custom:hover { transform: scale(1.05); }
+        .btn-logout {
+            border: none;
+            background: none;
+            color: white;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+        }
+        .btn-logout:hover {
+            text-decoration: underline;
+        }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -37,8 +46,21 @@
                 <li class="nav-item"><a class="nav-link" th:href="@{/dashboard}"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/documents}"><i class="bi bi-folder"></i> Dokumenty</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/calendar}"><i class="bi bi-calendar-event"></i> Kalendarz</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/login}"><i class="bi bi-box-arrow-in-right"></i> Logowanie</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/register}"><i class="bi bi-person-plus"></i> Rejestracja</a></li>
+
+                <!-- Pokazuje logowanie i rejestrację tylko dla niezalogowanych -->
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{/login}"><i class="bi bi-box-arrow-in-right"></i> Logowanie</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{/register}"><i class="bi bi-person-plus"></i> Rejestracja</a>
+                </li>
+
+                <!-- Pokazuje wylogowanie tylko dla zalogowanych -->
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="btn-logout nav-link"><i class="bi bi-box-arrow-right"></i> Wyloguj</button>
+                    </form>
+                </li>
             </ul>
         </div>
     </div>
@@ -53,8 +75,13 @@
             <a class="btn btn-outline-primary btn-custom" th:href="@{/dashboard}"><i class="bi bi-speedometer2"></i> Dashboard</a>
             <a class="btn btn-outline-secondary btn-custom" th:href="@{/documents}"><i class="bi bi-folder"></i> Dokumenty</a>
             <a class="btn btn-outline-success btn-custom" th:href="@{/calendar}"><i class="bi bi-calendar-event"></i> Kalendarz</a>
-            <a class="btn btn-outline-dark btn-custom" th:href="@{/login}"><i class="bi bi-box-arrow-in-right"></i> Logowanie</a>
-            <a class="btn btn-outline-info btn-custom" th:href="@{/register}"><i class="bi bi-person-plus"></i> Rejestracja</a>
+
+            <!-- Pokaż tylko dla anonimowych -->
+            <a class="btn btn-outline-dark btn-custom" th:href="@{/login}" sec:authorize="isAnonymous()"><i class="bi bi-box-arrow-in-right"></i> Logowanie</a>
+            <a class="btn btn-outline-info btn-custom" th:href="@{/register}" sec:authorize="isAnonymous()"><i class="bi bi-person-plus"></i> Rejestracja</a>
+
+            <!-- Opcjonalnie: komunikat powitalny -->
+            <p class="mt-4" sec:authorize="isAuthenticated()">Miło Cię widzieć z powrotem!</p>
         </div>
     </div>
 </main>

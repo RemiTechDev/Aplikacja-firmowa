@@ -89,7 +89,8 @@ public class UserServiceImpl implements UserService {
                 user.getLastName(),
                 user.getEmail(),
                 null,
-                user.getPassword()
+                user.getPassword(),
+                user.getSignUpDate()
         );
     }
 

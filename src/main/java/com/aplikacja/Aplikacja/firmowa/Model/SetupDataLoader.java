@@ -56,6 +56,7 @@ public class SetupDataLoader implements
         User user = new User();
         user.setFirstName("Test");
         user.setLastName("Test");
+        user.setLogin("admin");
         user.setPassword(passwordEncoder.encode("test"));
         user.setEmail("test@test.com");
         user.setRoles(Set.of(adminRole));
