@@ -4,29 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f55d2bdd-bc05-4465-adb1-94abfd5dec11" name="Changes" comment="Nowe zmiany wprowadzające:&#10;1. UserService registerNewUser&#10;2. W UserServiceImpl funkcja z punktu pierwszego została rozbudowana, aby uniknąć podwójnej logiki w kodzie.&#10;registerNewUser jest bardziej wydajna">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Validation/PasswordMatches.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Validation/PasswordMatchesValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Validation/PasswordValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Validation/ValidPassword.java" afterDir="false" />
+    <list default="true" id="f55d2bdd-bc05-4465-adb1-94abfd5dec11" name="Changes" comment="1. Zmiana ustawień bazy danych. Wcześniej baza danych działała w pamieci. Dane były przechowywane do momentu kiedy aplikacja działała. Po zamknieciu aplikacji i ponownym uruchomieniu dane były usunięte. teraz cała baza jest zapisywana lokalnie i ten problem nie występuje.&#10;przepisanie całego index.html+dashboard.html+ login.html. Od teraz po zalogowaniu użytkownik ma mozliwość klikniecia na przycisk wyloguj co skutkuje do powrotu do strony logowania. Dodatkowo użytkownik jest informowany o pomyślnym wylogowaniu.&#10;3. Walidacja haseł przy zakładaniu konta. od teraz hasło musi zawierać minimum 8 znaków. W tym: jedną Dużą leterę, cyfry i znak specjalny (uwaga &quot;.&quot; nie jest traktowana jako znak specjalny">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a935208b-b092-4a59-a386-05842aae5072.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a935208b-b092-4a59-a386-05842aae5072.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Dto/UserDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/SetupDataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/SetupDataLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Service/Implementation/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Service/Implementation/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/service/UserDetailsImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/service/UserDetailsImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/service/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/service/UserDetailsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +149,8 @@
       <workItem from="1751963378472" duration="948000" />
       <workItem from="1752040851262" duration="11191000" />
       <workItem from="1752128203218" duration="13357000" />
-      <workItem from="1752476930081" duration="5194000" />
+      <workItem from="1752476930081" duration="5676000" />
+      <workItem from="1752568847830" duration="2058000" />
     </task>
     <task id="LOCAL-00001" summary="naprawiono problem z wyświetlaniem strony powitalnej&#10;dodano opcje zakłądania konta i logowania&#10;dodano możliwość kalendarza wraz z dokumentami i dashboardem&#10;Dodano nowe kontrolery">
       <option name="closed" value="true" />
@@ -233,7 +216,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751960355308</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="1. Zmiana ustawień bazy danych. Wcześniej baza danych działała w pamieci. Dane były przechowywane do momentu kiedy aplikacja działała. Po zamknieciu aplikacji i ponownym uruchomieniu dane były usunięte. teraz cała baza jest zapisywana lokalnie i ten problem nie występuje.&#10;przepisanie całego index.html+dashboard.html+ login.html. Od teraz po zalogowaniu użytkownik ma mozliwość klikniecia na przycisk wyloguj co skutkuje do powrotu do strony logowania. Dodatkowo użytkownik jest informowany o pomyślnym wylogowaniu.&#10;3. Walidacja haseł przy zakładaniu konta. od teraz hasło musi zawierać minimum 8 znaków. W tym: jedną Dużą leterę, cyfry i znak specjalny (uwaga &quot;.&quot; nie jest traktowana jako znak specjalny">
+      <option name="closed" value="true" />
+      <created>1752482623133</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1752482623133</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -248,7 +239,8 @@
     <MESSAGE value="Ciągłe rozwijanie funkcji zwiazanej z uprawnieniami użytkownika tj: ustalanie ról czy dostęp do konkretnych funkcji w aplikacji&#10;- dla niezalogowanych&#10;- dla zalogowanych&#10;Rozwijanie frontendu. Próba dodania kalendarza, który jest ogólnodostępny ( podgląd daty i godziny) ale nie można dodawać spotkań lub wydarzeń dopóki użytkownik nie będzie zalogowany." />
     <MESSAGE value="Ciąg dalszy nadawania uprawnień - ustawienie hierarchii ról do bardziej wydajnego zarządzania pracownikami" />
     <MESSAGE value="Nowe zmiany wprowadzające:&#10;1. UserService registerNewUser&#10;2. W UserServiceImpl funkcja z punktu pierwszego została rozbudowana, aby uniknąć podwójnej logiki w kodzie.&#10;registerNewUser jest bardziej wydajna" />
-    <option name="LAST_COMMIT_MESSAGE" value="Nowe zmiany wprowadzające:&#10;1. UserService registerNewUser&#10;2. W UserServiceImpl funkcja z punktu pierwszego została rozbudowana, aby uniknąć podwójnej logiki w kodzie.&#10;registerNewUser jest bardziej wydajna" />
+    <MESSAGE value="1. Zmiana ustawień bazy danych. Wcześniej baza danych działała w pamieci. Dane były przechowywane do momentu kiedy aplikacja działała. Po zamknieciu aplikacji i ponownym uruchomieniu dane były usunięte. teraz cała baza jest zapisywana lokalnie i ten problem nie występuje.&#10;przepisanie całego index.html+dashboard.html+ login.html. Od teraz po zalogowaniu użytkownik ma mozliwość klikniecia na przycisk wyloguj co skutkuje do powrotu do strony logowania. Dodatkowo użytkownik jest informowany o pomyślnym wylogowaniu.&#10;3. Walidacja haseł przy zakładaniu konta. od teraz hasło musi zawierać minimum 8 znaków. W tym: jedną Dużą leterę, cyfry i znak specjalny (uwaga &quot;.&quot; nie jest traktowana jako znak specjalny" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. Zmiana ustawień bazy danych. Wcześniej baza danych działała w pamieci. Dane były przechowywane do momentu kiedy aplikacja działała. Po zamknieciu aplikacji i ponownym uruchomieniu dane były usunięte. teraz cała baza jest zapisywana lokalnie i ten problem nie występuje.&#10;przepisanie całego index.html+dashboard.html+ login.html. Od teraz po zalogowaniu użytkownik ma mozliwość klikniecia na przycisk wyloguj co skutkuje do powrotu do strony logowania. Dodatkowo użytkownik jest informowany o pomyślnym wylogowaniu.&#10;3. Walidacja haseł przy zakładaniu konta. od teraz hasło musi zawierać minimum 8 znaków. W tym: jedną Dużą leterę, cyfry i znak specjalny (uwaga &quot;.&quot; nie jest traktowana jako znak specjalny" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

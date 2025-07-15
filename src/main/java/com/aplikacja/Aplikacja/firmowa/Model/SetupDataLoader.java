@@ -53,17 +53,20 @@ public class SetupDataLoader implements
             Role role = new Role(ERoles.ADMIN_ROLE); //zmiana logiki. funkcja pobiera rolę kiedy ta istnieje
             return roleRepository.save(role);        // lub tworzy nową kiedy nie istnieje
         });
-        User user = new User();
-        user.setFirstName("Test");
-        user.setLastName("Test");
-        user.setLogin("admin");
-        user.setPassword(passwordEncoder.encode("test"));
-        user.setEmail("test@test.com");
-        user.setRoles(Set.of(adminRole));
-        user.setEnabled(true);
-        userRepository.save(user);
 
-        alreadySetup = true;
+        if (!userRepository.existsByLogin("admin1")) {
+            User user = new User();
+            user.setFirstName("Admin");
+            user.setLastName("Główny");
+            user.setLogin("admin1");
+            user.setPassword(passwordEncoder.encode("AdminGlowny123!"));
+            user.setEmail("admin1@firma.pl");
+            user.setRoles(Set.of(adminRole));
+            user.setEnabled(true);
+            userRepository.save(user);
+
+//            alreadySetup = true;
+        }
     }
 
     @Transactional
