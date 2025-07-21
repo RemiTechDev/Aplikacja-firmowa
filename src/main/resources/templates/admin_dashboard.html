@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Administratora</title>
+</head>
+<body>
+<h1>Witaj, <span th:text="${username}"></span> (administratorze)!</h1>
+
+<p>To jest panel administratora. Tutaj możesz zarządzać wszystkimiz asobami ludzkimi
+    jak i dokumentami i kalendarzem spotkań.</p>
+
+<ul>
+    <li><a href="/admin/users">📋 Zarządzaj użytkownikami</a></li>
+    <li><a href="/admin/roles">🛡️ Zarządzaj rolami</a></li>
+    <li><a href="/dashboard">👤 Przejdź do zwykłego dashboardu</a></li>
+    <li><a href="/logout">🚪 Wyloguj się</a></li>
+</ul>
+</body>
+</html>

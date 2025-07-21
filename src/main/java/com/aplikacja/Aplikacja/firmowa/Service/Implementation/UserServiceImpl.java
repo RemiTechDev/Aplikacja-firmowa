@@ -94,4 +94,10 @@ public class UserServiceImpl implements UserService {
         );
     }
 
+    @Override
+    public Role  findOrCreateRole(String roleName){
+        return roleRepository.findByName(ERoles.valueOf(roleName))
+                .orElseGet(()-> roleRepository.save(new Role (ERoles.valueOf(roleName))));
+    }
+
 }

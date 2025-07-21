@@ -4,11 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f55d2bdd-bc05-4465-adb1-94abfd5dec11" name="Changes" comment="1. Zmiana ustawień bazy danych. Wcześniej baza danych działała w pamieci. Dane były przechowywane do momentu kiedy aplikacja działała. Po zamknieciu aplikacji i ponownym uruchomieniu dane były usunięte. teraz cała baza jest zapisywana lokalnie i ten problem nie występuje.&#10;przepisanie całego index.html+dashboard.html+ login.html. Od teraz po zalogowaniu użytkownik ma mozliwość klikniecia na przycisk wyloguj co skutkuje do powrotu do strony logowania. Dodatkowo użytkownik jest informowany o pomyślnym wylogowaniu.&#10;3. Walidacja haseł przy zakładaniu konta. od teraz hasło musi zawierać minimum 8 znaków. W tym: jedną Dużą leterę, cyfry i znak specjalny (uwaga &quot;.&quot; nie jest traktowana jako znak specjalny">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a935208b-b092-4a59-a386-05842aae5072.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a935208b-b092-4a59-a386-05842aae5072.xml" afterDir="false" />
+    <list default="true" id="f55d2bdd-bc05-4465-adb1-94abfd5dec11" name="Changes" comment="Napotkano problem:&#10;Po zmianie bazy h2-mem na h2-file z każdym uruchomieniem aplikacji program tworzył nowe kontot estowe z tymi samymi danymi (hasło i login,email itd.) Uniemożliwiało to zalogowanie się na kontot estowe. dodano warunek if, który sprawdza bazę danych. Jeżeli użytkownik już istnieje, to nie robi nic, natomiast kiedy użytkownika nie ma dodaje go automatycznie do abzy danych. &#10;Zmieniono linijki od 57 - 63 oraz zakomentowano już nie potrzebną metodę w linijce 68">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/AdminDashboardController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/AdminViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/admin_dashboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/admin_user_edit.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/admin_users.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/AdminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/SetupDataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/SetupDataLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Service/Implementation/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Service/Implementation/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/SecurityConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +157,10 @@
       <workItem from="1752040851262" duration="11191000" />
       <workItem from="1752128203218" duration="13357000" />
       <workItem from="1752476930081" duration="5676000" />
-      <workItem from="1752568847830" duration="2058000" />
+      <workItem from="1752568847830" duration="3070000" />
+      <workItem from="1752656087828" duration="6606000" />
+      <workItem from="1752743109895" duration="7921000" />
+      <workItem from="1753082696992" duration="6173000" />
     </task>
     <task id="LOCAL-00001" summary="naprawiono problem z wyświetlaniem strony powitalnej&#10;dodano opcje zakłądania konta i logowania&#10;dodano możliwość kalendarza wraz z dokumentami i dashboardem&#10;Dodano nowe kontrolery">
       <option name="closed" value="true" />
@@ -224,7 +234,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752482623133</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Napotkano problem:&#10;Po zmianie bazy h2-mem na h2-file z każdym uruchomieniem aplikacji program tworzył nowe kontot estowe z tymi samymi danymi (hasło i login,email itd.) Uniemożliwiało to zalogowanie się na kontot estowe. dodano warunek if, który sprawdza bazę danych. Jeżeli użytkownik już istnieje, to nie robi nic, natomiast kiedy użytkownika nie ma dodaje go automatycznie do abzy danych. &#10;Zmieniono linijki od 57 - 63 oraz zakomentowano już nie potrzebną metodę w linijce 68">
+      <option name="closed" value="true" />
+      <created>1752571729043</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1752571729044</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -240,7 +258,8 @@
     <MESSAGE value="Ciąg dalszy nadawania uprawnień - ustawienie hierarchii ról do bardziej wydajnego zarządzania pracownikami" />
     <MESSAGE value="Nowe zmiany wprowadzające:&#10;1. UserService registerNewUser&#10;2. W UserServiceImpl funkcja z punktu pierwszego została rozbudowana, aby uniknąć podwójnej logiki w kodzie.&#10;registerNewUser jest bardziej wydajna" />
     <MESSAGE value="1. Zmiana ustawień bazy danych. Wcześniej baza danych działała w pamieci. Dane były przechowywane do momentu kiedy aplikacja działała. Po zamknieciu aplikacji i ponownym uruchomieniu dane były usunięte. teraz cała baza jest zapisywana lokalnie i ten problem nie występuje.&#10;przepisanie całego index.html+dashboard.html+ login.html. Od teraz po zalogowaniu użytkownik ma mozliwość klikniecia na przycisk wyloguj co skutkuje do powrotu do strony logowania. Dodatkowo użytkownik jest informowany o pomyślnym wylogowaniu.&#10;3. Walidacja haseł przy zakładaniu konta. od teraz hasło musi zawierać minimum 8 znaków. W tym: jedną Dużą leterę, cyfry i znak specjalny (uwaga &quot;.&quot; nie jest traktowana jako znak specjalny" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. Zmiana ustawień bazy danych. Wcześniej baza danych działała w pamieci. Dane były przechowywane do momentu kiedy aplikacja działała. Po zamknieciu aplikacji i ponownym uruchomieniu dane były usunięte. teraz cała baza jest zapisywana lokalnie i ten problem nie występuje.&#10;przepisanie całego index.html+dashboard.html+ login.html. Od teraz po zalogowaniu użytkownik ma mozliwość klikniecia na przycisk wyloguj co skutkuje do powrotu do strony logowania. Dodatkowo użytkownik jest informowany o pomyślnym wylogowaniu.&#10;3. Walidacja haseł przy zakładaniu konta. od teraz hasło musi zawierać minimum 8 znaków. W tym: jedną Dużą leterę, cyfry i znak specjalny (uwaga &quot;.&quot; nie jest traktowana jako znak specjalny" />
+    <MESSAGE value="Napotkano problem:&#10;Po zmianie bazy h2-mem na h2-file z każdym uruchomieniem aplikacji program tworzył nowe kontot estowe z tymi samymi danymi (hasło i login,email itd.) Uniemożliwiało to zalogowanie się na kontot estowe. dodano warunek if, który sprawdza bazę danych. Jeżeli użytkownik już istnieje, to nie robi nic, natomiast kiedy użytkownika nie ma dodaje go automatycznie do abzy danych. &#10;Zmieniono linijki od 57 - 63 oraz zakomentowano już nie potrzebną metodę w linijce 68" />
+    <option name="LAST_COMMIT_MESSAGE" value="Napotkano problem:&#10;Po zmianie bazy h2-mem na h2-file z każdym uruchomieniem aplikacji program tworzył nowe kontot estowe z tymi samymi danymi (hasło i login,email itd.) Uniemożliwiało to zalogowanie się na kontot estowe. dodano warunek if, który sprawdza bazę danych. Jeżeli użytkownik już istnieje, to nie robi nic, natomiast kiedy użytkownika nie ma dodaje go automatycznie do abzy danych. &#10;Zmieniono linijki od 57 - 63 oraz zakomentowano już nie potrzebną metodę w linijce 68" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

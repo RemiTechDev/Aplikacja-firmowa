@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <title>Edycja użytkownika</title>
+    <meta charset="UTF-8">
+    </head>
+    <body>
+    <h2>Edycja użytkownika</h2>
+    <form th:action="@{'/admin/users/update/' + ${user.id}}" method="post">
+    <p><strong>Login:</strong> <span th:text="${user.login}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+
+    <p>
+        <strong>Role:</strong><br>
+        <span th:each="role : ${allRoles}">
+            <input type="checkbox"
+                   name="roleIds"
+                   th:value="${role.id}"
+                   th:checked="${user.roles.contains(role)}"
+            />
+            <span th:text="${role.name}"></span><br>
+        </span>
+    </p>
+
+    <p>
+        <label>Aktywny:
+            <input type="checkbox" name="enabled" th:checked="${user.enabled}" />
+        </label>
+    </p>
+
+    <button type="submit">Zapisz zmiany</button>
+    </form>
+
+    <p><a href="/admin/users">Wróć do listy</a></p>
+    </body>
+    </html>

@@ -46,8 +46,8 @@ public class SetupDataLoader implements
 
         List<Privilege> adminPrivileges = Arrays.asList(
                 readPrivilege, writePrivilege);
-        createRoleIfNotFound("ADMIN_ROLE", adminPrivileges);
-        createRoleIfNotFound("USER_ROLE", Arrays.asList(readPrivilege));
+        createRoleIfNotFound(ERoles.ADMIN_ROLE.name(), adminPrivileges);
+        createRoleIfNotFound(ERoles.USER_ROLE.name(), Arrays.asList(readPrivilege));
 
         Role adminRole = roleRepository.findByName(ERoles.ADMIN_ROLE).orElseGet(() -> {
             Role role = new Role(ERoles.ADMIN_ROLE); //zmiana logiki. funkcja pobiera rolę kiedy ta istnieje
@@ -65,7 +65,7 @@ public class SetupDataLoader implements
             user.setEnabled(true);
             userRepository.save(user);
 
-//            alreadySetup = true;
+            alreadySetup = true;
         }
     }
 

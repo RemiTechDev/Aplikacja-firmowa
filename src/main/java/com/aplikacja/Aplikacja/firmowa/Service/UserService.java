@@ -5,6 +5,8 @@ import com.aplikacja.Aplikacja.firmowa.Model.User;
 import com.aplikacja.Aplikacja.firmowa.Service.exceptions.UserExistException;
 import com.aplikacja.Aplikacja.firmowa.Service.exceptions.UserNotExistException;
 import org.springframework.stereotype.Service;
+import com.aplikacja.Aplikacja.firmowa.Model.Role;
+
 
 import java.util.List;
 
@@ -22,6 +24,8 @@ public interface UserService {
     //Przypisanie z automatu roli User. Szyfrowanie hasła. Sprawdzanie czy login i mail są unikalne
     //(użyte tylko raz).
     User registerNewUser(UserDto accountDto) throws UserExistException;
+
+    Role findOrCreateRole(String roleName);
 
 
 }
