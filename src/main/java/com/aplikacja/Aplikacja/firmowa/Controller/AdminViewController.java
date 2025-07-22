@@ -5,7 +5,9 @@ import com.aplikacja.Aplikacja.firmowa.Model.User;
 import com.aplikacja.Aplikacja.firmowa.Repositories.RoleRepository;
 import com.aplikacja.Aplikacja.firmowa.Repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,9 @@ import java.util.Set;
 @RequestMapping("/admin")
 @PreAuthorize("hasRole('ADMIN_ROLE')")
 public class AdminViewController {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -74,6 +79,35 @@ public class AdminViewController {
         user.setEnabled(enabled);
         userRepository.save(user);
 
+        return "redirect:/admin/users";
+    }
+
+    @GetMapping("/users/create")
+    public String createUserForm(Model model) {
+        model.addAttribute("roles", roleRepository.findAll());
+        return "admin_user_create";
+    }
+
+    @PostMapping("/users/create")
+    public String createUser(@RequestParam String login,
+                             @RequestParam String password,
+                             @RequestParam String email,
+                             @RequestParam String firstName,
+                             @RequestParam String lastName,
+                             @RequestParam Long roleId) {
+
+        Role role = roleRepository.findById(roleId).orElseThrow();
+
+        User user = new User();
+        user.setLogin(login);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setEmail(email);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEnabled(true);
+        user.setRoles(Set.of(role));
+
+        userRepository.save(user);
         return "redirect:/admin/users";
     }
 

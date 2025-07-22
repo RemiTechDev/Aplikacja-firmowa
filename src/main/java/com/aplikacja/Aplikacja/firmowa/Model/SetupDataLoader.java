@@ -49,6 +49,10 @@ public class SetupDataLoader implements
         createRoleIfNotFound(ERoles.ADMIN_ROLE.name(), adminPrivileges);
         createRoleIfNotFound(ERoles.USER_ROLE.name(), Arrays.asList(readPrivilege));
 
+        // Brakujące role dodane 22.07.2025
+        createRoleIfNotFound(ERoles.STAFF_ROLE.name(), Arrays.asList(readPrivilege));
+        createRoleIfNotFound(ERoles.MANAGER_ROLE.name(), Arrays.asList(readPrivilege, writePrivilege));
+
         Role adminRole = roleRepository.findByName(ERoles.ADMIN_ROLE).orElseGet(() -> {
             Role role = new Role(ERoles.ADMIN_ROLE); //zmiana logiki. funkcja pobiera rolę kiedy ta istnieje
             return roleRepository.save(role);        // lub tworzy nową kiedy nie istnieje

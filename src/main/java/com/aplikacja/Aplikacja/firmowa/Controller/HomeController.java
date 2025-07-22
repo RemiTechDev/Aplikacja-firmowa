@@ -1,4 +1,5 @@
 //package com.aplikacja.Aplikacja.firmowa.Controller;
+
 //
 //
 //import org.springframework.stereotype.Controller;
@@ -14,3 +15,6 @@
 //        return "index";
 //    }
 //}
+
+
+//                          NOT SUPPORTED ANYMORE!!!!!!!!!
