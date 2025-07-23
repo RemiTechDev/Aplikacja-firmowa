@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -94,9 +95,17 @@ public class AdminViewController {
                              @RequestParam String email,
                              @RequestParam String firstName,
                              @RequestParam String lastName,
-                             @RequestParam Long roleId) {
+                             @RequestParam(value = "roleIds", required = false) List<Long> roleIds,
+                             @RequestParam(value = "enabled", defaultValue = "false") boolean enabled) {
 
-        Role role = roleRepository.findById(roleId).orElseThrow();
+//        Role role = roleRepository.findById(roleIds).orElseThrow();
+
+        Set<Role> selectedRoles = new HashSet<>();
+        if (roleIds != null) {
+            for (Long roleId : roleIds) {
+                roleRepository.findById(roleId).ifPresent(selectedRoles::add);
+            }
+        }
 
         User user = new User();
         user.setLogin(login);
@@ -104,8 +113,11 @@ public class AdminViewController {
         user.setEmail(email);
         user.setFirstName(firstName);
         user.setLastName(lastName);
-        user.setEnabled(true);
-        user.setRoles(Set.of(role));
+        user.setEnabled(enabled);
+//        user.setRoles(Set.of(role));
+        user.setRoles(selectedRoles);
+        user.setSignUpDate(LocalDateTime.now()); //rozwiązanie problemu z datą tworzenia konta
+
 
         userRepository.save(user);
         return "redirect:/admin/users";
