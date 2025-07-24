@@ -33,7 +33,14 @@
                     th:text="${role.name.name()}"
                     th:selected="${user.roles.contains(role)}">
             </option>
+
         </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="newPassword" class="form-label">Nowe hasło</label>
+        <input type="password" id="newPassword" name="newPassword" class="form-control">
+        <div class="form-text">Pozostaw puste, jeśli nie chcesz zmieniać hasła</div>
     </div>
 
     <button type="submit" class="btn btn-primary">Zapisz zmiany</button>

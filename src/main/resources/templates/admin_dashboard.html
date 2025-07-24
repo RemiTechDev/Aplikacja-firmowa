@@ -136,6 +136,13 @@
 
         </div>
     </div>
+
+    <h3>Zbliżające się spotkania</h3>
+    <ul>
+        <li th:each="meeting : ${upcomingMeetings}">
+            <span th:text="${meeting.date}"></span> – <span th:text="${meeting.title}"></span>
+        </li>
+    </ul>
 </div>
 </body>
 </html>

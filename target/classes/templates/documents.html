@@ -1,19 +1,41 @@
 
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head><title>Dokumenty</title></head>
-<body>
-<h2>Twoje dokumenty</h2>
-<form th:action="@{/documents/upload}" method="post" enctype="multipart/form-data">
-    <input type="file" name="file" />
-    <button type="submit">Wyślij</button>
-</form>
-<table>
-    <tr><th>Nazwa</th><th>Data</th></tr>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <head><title>Dokumenty</title></head>
+    <body>
+    <h2 th:if="${#authorization.expression('isAuthenticated()')}">Twoje dokumenty</h2>
+    <h2 th:unless="${#authorization.expression('isAuthenticated()')}">Tylko dla zalogowanych </h2>
+
+    <div th:if="${#authorization.expression('hasAnyRole(''ADMIN'', ''MANAGER'', ''STAFF'', ''USER'')')}">
+    <form th:action="@{/documents/upload}" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" />
+        <button type="submit">Wyślij</button>
+    </form>
+    </div>
+    <table>
+    <thead>
+    <tr>
+        <th>Nazwa</th>
+        <th>Data</th>
+        <th>Akcje</th>
+    </tr>
+    </thead>
+    <tbody>
     <tr th:each="doc : ${docs}">
         <td th:text="${doc.title}"></td>
-        <td th:text="${doc.created}"></td>
+        <td th:text="${#dates.format(doc.created, 'dd-MM-yyyy HH:mm')}"></td>
+        <td>
+            <!-- Usuń - tylko ADMIN i MANAGER -->
+            <form th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''MANAGER'')')}" th:action="@{/documents/delete/{id}(id=${doc.id})}" method="post" style="display:inline">
+                <button type="submit">Usuń</button>
+            </form>
+
+            <!-- Komentarz - wszyscy zalogowani -->
+            <a th:href="@{'/documents/view/' + ${doc.id}}" class="btn btn-sm btn-outline-secondary ms-2">Komentarze</a>
+        </td>
     </tr>
-</table>
-</body>
-</html>
+    </tbody>
+    </table>
+
+    </body>
+    </html>

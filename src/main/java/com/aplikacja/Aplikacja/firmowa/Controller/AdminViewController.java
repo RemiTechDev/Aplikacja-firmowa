@@ -1,7 +1,10 @@
 package com.aplikacja.Aplikacja.firmowa.Controller;
 
+import com.aplikacja.Aplikacja.firmowa.Model.Meeting;
 import com.aplikacja.Aplikacja.firmowa.Model.Role;
 import com.aplikacja.Aplikacja.firmowa.Model.User;
+import com.aplikacja.Aplikacja.firmowa.Repositories.DocumentRepository;
+import com.aplikacja.Aplikacja.firmowa.Repositories.MeetingRepository;
 import com.aplikacja.Aplikacja.firmowa.Repositories.RoleRepository;
 import com.aplikacja.Aplikacja.firmowa.Repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +31,11 @@ public class AdminViewController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    private final DocumentRepository documentRepository;
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+
 
     //  Widok listy użytkowników
     @GetMapping("/users")
@@ -61,7 +66,8 @@ public class AdminViewController {
     @PostMapping("/users/update/{id}")
     public String updateUser(@PathVariable Long id,
                              @RequestParam(value = "roleIds", required = false) List<Long> roleIds,
-                             @RequestParam(value = "enabled", required = false) boolean enabled) {
+                             @RequestParam(value = "enabled", required = false) boolean enabled,
+                             @RequestParam(value = "newPassword", required = false) String newPassword) {
 
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isEmpty()) {
@@ -69,6 +75,12 @@ public class AdminViewController {
         }
 
         User user = optionalUser.get();
+
+        //Aktualizowanie i zmiana hasła
+        if (newPassword != null && !newPassword.isEmpty()) {
+            user.setPassword(passwordEncoder.encode(newPassword));
+        }
+
         Set<Role> selectedRoles = new HashSet<>();
         if (roleIds != null) {
             for (Long roleId : roleIds) {
@@ -122,6 +134,19 @@ public class AdminViewController {
         userRepository.save(user);
         return "redirect:/admin/users";
     }
+// Usuwanie użytkowników przez administratora
+    @GetMapping("/users/delete/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        userRepository.deleteById(id);
+        return "redirect:/admin/users";
+    }
+
+    @GetMapping("/documents")
+    public String listDocuments(Model model) {
+        model.addAttribute("docs", documentRepository.findAll());
+        return "admin_documents";
+    }
+
 
 
 }

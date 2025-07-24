@@ -41,7 +41,9 @@
             <span th:unless="${user.enabled}" class="text-danger">Nie</span>
         </td>
         <td>
-            <a th:href="@{/admin/users/edit/{id}(id=${user.id})}" class="btn btn-sm btn-primary">Edytuj</a>
+            <a th:href="@{/admin/users/edit/{id}(id=${user.id})}" class="btn btn-sm btn-primary"> Edytuj</a>
+            <a th:href="@{/admin/users/delete/{id}(id=${user.id})}" class="btn btn-sm btn-danger ms-1"
+               onclick="return confirm('Czy na pewno chcesz usunąć tego użytkownika?')"> Usuń</a>
         </td>
     </tr>
     </tbody>

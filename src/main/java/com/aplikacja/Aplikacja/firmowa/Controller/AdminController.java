@@ -43,7 +43,7 @@ public class AdminController {
         return ResponseEntity.ok(new ResponseMessage("New account account is created successfully"));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/user/{id}")
     @ResponseBody
     @PreAuthorize("hasRole('ADMIN')")
     public UserDto getUser(@PathVariable Long id) {
