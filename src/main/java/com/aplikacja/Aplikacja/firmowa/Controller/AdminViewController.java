@@ -3,6 +3,7 @@ package com.aplikacja.Aplikacja.firmowa.Controller;
 import com.aplikacja.Aplikacja.firmowa.Model.Meeting;
 import com.aplikacja.Aplikacja.firmowa.Model.Role;
 import com.aplikacja.Aplikacja.firmowa.Model.User;
+import com.aplikacja.Aplikacja.firmowa.Repositories.MeetingRepository;
 import com.aplikacja.Aplikacja.firmowa.Repositories.DocumentRepository;
 import com.aplikacja.Aplikacja.firmowa.Repositories.MeetingRepository;
 import com.aplikacja.Aplikacja.firmowa.Repositories.RoleRepository;
@@ -32,6 +33,8 @@ public class AdminViewController {
     @Autowired
     private PasswordEncoder passwordEncoder;
     private final DocumentRepository documentRepository;
+    private final MeetingRepository meetingRepository;
+
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -147,6 +150,13 @@ public class AdminViewController {
         return "admin_documents";
     }
 
+    @GetMapping("/dashboard/extended")
+    public String dashboardView(Model model) {
+        model.addAttribute("documents", documentRepository.findAll());
+        model.addAttribute("loginHistory", List.of()); // To możesz kiedyś uzupełnić
+        model.addAttribute("upcomingMeetings", meetingRepository.findTop5ByOrderByDateTimeAsc());
+        return "admin_dashboard"; // plik: admin_dashboard.html
+    }
 
 
 }

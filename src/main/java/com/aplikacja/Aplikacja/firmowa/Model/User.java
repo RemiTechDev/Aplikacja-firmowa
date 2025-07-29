@@ -42,6 +42,7 @@ public class User {
 
     private LocalDateTime signUpDate;
 
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "users_roles",
@@ -49,6 +50,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
+
 
     @Builder
     public User(String firstName, String lastName, String login, String password, String email,
@@ -63,6 +65,10 @@ public class User {
         this.enabled = true;
     }
 
+    public boolean hasRole(String roleName) {
+        return roles.stream().anyMatch(r -> r.getName().equals(roleName));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -70,8 +76,11 @@ public class User {
         return email.equals(user.email);
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(email);
     }
+
+
 }

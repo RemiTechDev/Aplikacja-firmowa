@@ -1,77 +1,88 @@
+<!-- calendar.html -->
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Kalendarz Spotkań</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <style>
-        table.calendar {
-            width: 100%;
-            border-collapse: collapse;
-            table-layout: fixed;
-        }
-
-        .calendar th, .calendar td {
-            border: 1px solid #ccc;
-            height: 100px;
-            vertical-align: top;
-            padding: 5px;
-        }
-
-        .calendar th {
-            background-color: #f8f9fa;
-            text-align: center;
-        }
-
-        .calendar td.today {
-            background-color: #e3f2fd;
-        }
-
-        .meeting {
-            background-color: #dee2e6;
-            margin: 2px 0;
-            padding: 2px 4px;
-            border-radius: 4px;
-            font-size: 0.8em;
-        }
-
-        .day-number {
-            font-weight: bold;
-            margin-bottom: 4px;
-            display: block;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-<div class="container mt-4">
-    <h2 class="mb-4">Kalendarz Spotkań</h2>
+<body class="bg-gray-100 text-gray-900">
+<div class="container mx-auto p-4">
+    <div class="flex justify-between items-center mb-4">
+        <h1 class="text-2xl font-bold flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3M16 7V3M4 11h16M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            Kalendarz Spotkań
+        </h1>
+        <div>
+            <a href="/calendar?prev" class="bg-blue-100 text-blue-800 py-1 px-2 rounded hover:bg-blue-200">&larr; Poprzedni</a>
+            <a href="/calendar?next" class="bg-blue-100 text-blue-800 py-1 px-2 rounded hover:bg-blue-200 ml-2">Następny &rarr;</a>
+        </div>
+    </div>
 
-    <table class="calendar">
+    <!-- Miesiące -->
+    <div class="mb-4">
+        <h2 class="text-xl font-semibold">
+            Obecny miesiąc: <span class="text-blue-600" th:text="${currentMonthName}"></span> |
+            Następny miesiąc: <span class="text-green-600" th:text="${nextMonthName}"></span>
+        </h2>
+    </div>
+
+    <!-- Dodaj Spotkanie -->
+    <div th:if="${#lists.contains(roles.![name.name()], 'ADMIN_ROLE') or #lists.contains(roles.![name.name()], 'MANAGER_ROLE')}">
+        <button onclick="document.getElementById('addMeetingModal').classList.remove('hidden')"
+                class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded mb-4">
+            &#x2795; Dodaj Spotkanie
+        </button>
+    </div>
+
+    <!-- Tabela kalendarza -->
+    <table class="table-auto w-full border">
         <thead>
-        <tr>
-            <th>Pon</th>
-            <th>Wt</th>
-            <th>Śr</th>
-            <th>Czw</th>
-            <th>Pt</th>
-            <th>Sob</th>
-            <th>Ndz</th>
+        <tr class="bg-gray-200">
+            <th class="border px-4 py-2">Pon</th>
+            <th class="border px-4 py-2">Wt</th>
+            <th class="border px-4 py-2">Śr</th>
+            <th class="border px-4 py-2">Czw</th>
+            <th class="border px-4 py-2">Pt</th>
+            <th class="border px-4 py-2">Sob</th>
+            <th class="border px-4 py-2">Nd</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="week : ${calendarWeeks}">
-            <td th:each="day : ${week}"
-                th:classappend="${day.equals(T(java.time.LocalDate).now())} ? 'today'">
-                <span class="day-number" th:text="${day.dayOfMonth}">1</span>
-                <div th:each="meeting : ${meetings}"
-                     th:if="${meeting.dateTime.toLocalDate().equals(day)}"
-                     class="meeting"
-                     th:text="${#temporals.format(meeting.dateTime, 'HH:mm')} + ' - ' + ${meeting.title}">
-                </div>
+            <td class="border px-4 py-2 h-24 align-top" th:each="day : ${week}" th:text="${day.dayOfMonth}">
             </td>
         </tr>
         </tbody>
     </table>
+</div>
+
+<!-- Modal dodawania spotkania -->
+<div id="addMeetingModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded shadow-lg w-96">
+        <h3 class="text-lg font-semibold mb-4">Nowe Spotkanie</h3>
+        <form action="/meetings/add" method="post">
+            <label class="block">Tytuł:
+                <input type="text" name="title" required class="w-full border p-1 rounded"/>
+            </label>
+            <label class="block mt-2">Opis:
+                <textarea name="description" class="w-full border p-1 rounded"></textarea>
+            </label>
+            <label class="block mt-2">Data i czas:
+                <input type="datetime-local" name="dateTime" required class="w-full border p-1 rounded"/>
+            </label>
+            <label class="block mt-2">Lokalizacja:
+                <input type="text" name="location" class="w-full border p-1 rounded"/>
+            </label>
+            <div class="mt-4 flex justify-end">
+                <button type="submit" class="bg-green-600 hover:bg-green-700 text-white py-1 px-3 rounded">Zapisz</button>
+                <button type="button" onclick="document.getElementById('addMeetingModal').classList.add('hidden')"
+                        class="ml-2 py-1 px-3">Anuluj</button>
+            </div>
+        </form>
+    </div>
 </div>
 </body>
 </html>

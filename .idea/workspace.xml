@@ -4,22 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f55d2bdd-bc05-4465-adb1-94abfd5dec11" name="Changes" comment="Naprawiono:&#10;1. Nie działał odnośnik do tworzenia uzytkownika. Już działa&#10;&#10;Po naprawienia odnośnika:&#10;Podczas tworzenia użytkownika nie zostawała mu przypisywana rola jaką wybierał administrator w formularzu. Działało to tylko poprzez opcję &quot;edytuj&quot;&#10;Dodatkowo nie została dodawana data utworzenia konta kiedy takowe zakładał administrator&#10;&#10;Obecnie wspomniane kwestie już działają!!!">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Service/CalendarService.java" afterDir="false" />
+    <list default="true" id="f55d2bdd-bc05-4465-adb1-94abfd5dec11" name="Changes" comment="Dodano:&#10;1. wstępny widok kalendarza w panelu administratora&#10;2. Administrator od teraz może zmieniać hasło użytkownikom.&#10;3. Administrator może usuwać konta użytkowników&#10;4. Dodano klasy, które w późniejszym etapie będa realizować spotkania przez wszystkich użytkowników oraz dokumenty.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/MeetingCommentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/MeetingController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/MeetingComment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/MeetingCommentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/AdminDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/AdminDashboardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/AdminViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/AdminViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/CalendarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/CalendarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/DocumentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/DocumentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/Meeting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/Meeting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/MeetingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/MeetingRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin_dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin_user_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin_user_edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin_users.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin_users.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/calendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/calendar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/documents.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/documents.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/calendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/calendar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/documents.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/documents.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,8 +30,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -117,8 +117,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.23591.19" />
-        <option value="bundled-js-predefined-d6986cc7102b-6be00b7b0f42-JavaScript-IU-252.23591.19" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.23892.248" />
+        <option value="bundled-js-predefined-d6986cc7102b-e03c56caf84a-JavaScript-IU-252.23892.248" />
       </set>
     </attachedChunks>
   </component>
@@ -167,7 +167,10 @@
       <workItem from="1753082696992" duration="6856000" />
       <workItem from="1753167441818" duration="10074000" />
       <workItem from="1753259884719" duration="5172000" />
-      <workItem from="1753339285217" duration="13949000" />
+      <workItem from="1753339285217" duration="14235000" />
+      <workItem from="1753681728871" duration="45000" />
+      <workItem from="1753682116618" duration="11652000" />
+      <workItem from="1753768604738" duration="4807000" />
     </task>
     <task id="LOCAL-00001" summary="naprawiono problem z wyświetlaniem strony powitalnej&#10;dodano opcje zakłądania konta i logowania&#10;dodano możliwość kalendarza wraz z dokumentami i dashboardem&#10;Dodano nowe kontrolery">
       <option name="closed" value="true" />
@@ -273,7 +276,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753265296714</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Dodano:&#10;1. wstępny widok kalendarza w panelu administratora&#10;2. Administrator od teraz może zmieniać hasło użytkownikom.&#10;3. Administrator może usuwać konta użytkowników&#10;4. Dodano klasy, które w późniejszym etapie będa realizować spotkania przez wszystkich użytkowników oraz dokumenty.">
+      <option name="closed" value="true" />
+      <created>1753353638636</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1753353638636</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -293,7 +304,8 @@
     <MESSAGE value="Skupienie się na funkcjonalnościach Administratora.&#10;1. Aplikacja tworzyła wcześniej ROLE_ADMIN_ROLE co wykluczało moje podstawowe założenia i dochodziło do konfliktu ról i nie można było zalogować się jako admin1 nawet jeśli dane logowania były poprawne&#10;2. Od teraz administrator po pomyślnym zalogowaniu się automatycznie jest przenoszony do predefiniowanego dashboardu, z którego na chwilę obecną może tylko edytować i dodawac użytkowników.&#10;&#10;Co jest w dalszym etapie do zrobienia:&#10;1. Wygląd dasboardu dla administratora&#10;2. Bardziej rozbudowany interfejs o takie funkcje jak obsługa kalendarza, dodawanie dokumentów i planowanie meetingów.&#10;3. Admin będzie mógł nadawać wszystkie role jakie są w klasie ERoles&#10;4. Po zakończeniu prac nad administratorem zacznę tworzyć podobny system dla użytkownika zalogowanego niezależnie od tego jaką ma rolę.&#10;5. Rozbuduję zakładkę  &quot;O aplikacji&quot;&#10;6. Niezalogowany użytkownik będzie mógł miec podgląd do kalendarza, godziny i ewentualnych wolnych terminów danego pracownika (jeszcze do przemyślenia)" />
     <MESSAGE value="Budowanie Dashboardu dla administratora i wprowadzenie funkcjonalności&#10;- tworzenie użytkownika i nadawanie mu roli&#10;- edycja użytkownika i zmiana roli (niedługo też zmiana hasła)&#10;2. Dodanie warunku, który uzupełnia bazę danych o brakujące role (Staff i Manager)" />
     <MESSAGE value="Naprawiono:&#10;1. Nie działał odnośnik do tworzenia uzytkownika. Już działa&#10;&#10;Po naprawienia odnośnika:&#10;Podczas tworzenia użytkownika nie zostawała mu przypisywana rola jaką wybierał administrator w formularzu. Działało to tylko poprzez opcję &quot;edytuj&quot;&#10;Dodatkowo nie została dodawana data utworzenia konta kiedy takowe zakładał administrator&#10;&#10;Obecnie wspomniane kwestie już działają!!!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Naprawiono:&#10;1. Nie działał odnośnik do tworzenia uzytkownika. Już działa&#10;&#10;Po naprawienia odnośnika:&#10;Podczas tworzenia użytkownika nie zostawała mu przypisywana rola jaką wybierał administrator w formularzu. Działało to tylko poprzez opcję &quot;edytuj&quot;&#10;Dodatkowo nie została dodawana data utworzenia konta kiedy takowe zakładał administrator&#10;&#10;Obecnie wspomniane kwestie już działają!!!" />
+    <MESSAGE value="Dodano:&#10;1. wstępny widok kalendarza w panelu administratora&#10;2. Administrator od teraz może zmieniać hasło użytkownikom.&#10;3. Administrator może usuwać konta użytkowników&#10;4. Dodano klasy, które w późniejszym etapie będa realizować spotkania przez wszystkich użytkowników oraz dokumenty." />
+    <option name="LAST_COMMIT_MESSAGE" value="Dodano:&#10;1. wstępny widok kalendarza w panelu administratora&#10;2. Administrator od teraz może zmieniać hasło użytkownikom.&#10;3. Administrator może usuwać konta użytkowników&#10;4. Dodano klasy, które w późniejszym etapie będa realizować spotkania przez wszystkich użytkowników oraz dokumenty." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

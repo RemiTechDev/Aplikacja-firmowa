@@ -2,6 +2,8 @@ package com.aplikacja.Aplikacja.firmowa.Model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "meetings")
@@ -30,6 +32,9 @@ public class Meeting {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @OneToMany(mappedBy = "meeting", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MeetingComment> comments = new ArrayList<>();
 
     // === Konstruktory ===
     public Meeting() {}
