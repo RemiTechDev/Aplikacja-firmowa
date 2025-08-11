@@ -1,13 +1,14 @@
-<!-- calendar.html -->
+<!-- templates/calendar.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Kalendarz Spotkań</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 </head>
 <body class="bg-gray-100 text-gray-900">
 <div class="container mx-auto p-4">
+    <!-- Top bar -->
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl font-bold flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -15,22 +16,28 @@
             </svg>
             Kalendarz Spotkań
         </h1>
-        <div>
+
+        <div class="flex items-center gap-2">
+            <a href="/admin/dashboard/extended"
+               class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-1 px-3 rounded">⟵ Powrót do panelu</a>
             <a href="/calendar?prev" class="bg-blue-100 text-blue-800 py-1 px-2 rounded hover:bg-blue-200">&larr; Poprzedni</a>
-            <a href="/calendar?next" class="bg-blue-100 text-blue-800 py-1 px-2 rounded hover:bg-blue-200 ml-2">Następny &rarr;</a>
+            <a href="/calendar?next" class="bg-blue-100 text-blue-800 py-1 px-2 rounded hover:bg-blue-200">Następny &rarr;</a>
         </div>
     </div>
 
     <!-- Miesiące -->
     <div class="mb-4">
         <h2 class="text-xl font-semibold">
-            Obecny miesiąc: <span class="text-blue-600" th:text="${currentMonthName}"></span> |
-            Następny miesiąc: <span class="text-green-600" th:text="${nextMonthName}"></span>
+            Obecny miesiąc:
+            <span class="text-blue-600" th:text="${currentMonthName} + ' ' + ${currentYear}">sierpień 2025</span>
+            <span class="mx-2">|</span>
+            Następny miesiąc:
+            <span class="text-green-600" th:text="${nextMonthName} + ' ' + ${nextYear}">wrzesień 2025</span>
         </h2>
     </div>
 
     <!-- Dodaj Spotkanie -->
-    <div th:if="${#lists.contains(roles.![name.name()], 'ADMIN_ROLE') or #lists.contains(roles.![name.name()], 'MANAGER_ROLE')}">
+    <div th:if="${@perm.canCreate(#authentication)}">
         <button onclick="document.getElementById('addMeetingModal').classList.remove('hidden')"
                 class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded mb-4">
             &#x2795; Dodaj Spotkanie
@@ -38,21 +45,83 @@
     </div>
 
     <!-- Tabela kalendarza -->
-    <table class="table-auto w-full border">
+    <table class="table-auto w-full border bg-white rounded shadow">
         <thead>
-        <tr class="bg-gray-200">
-            <th class="border px-4 py-2">Pon</th>
-            <th class="border px-4 py-2">Wt</th>
-            <th class="border px-4 py-2">Śr</th>
-            <th class="border px-4 py-2">Czw</th>
-            <th class="border px-4 py-2">Pt</th>
-            <th class="border px-4 py-2">Sob</th>
-            <th class="border px-4 py-2">Nd</th>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 text-left">Pon</th>
+            <th class="border px-4 py-2 text-left">Wt</th>
+            <th class="border px-4 py-2 text-left">Śr</th>
+            <th class="border px-4 py-2 text-left">Czw</th>
+            <th class="border px-4 py-2 text-left">Pt</th>
+            <th class="border px-4 py-2 text-left">Sob</th>
+            <th class="border px-4 py-2 text-left">Nd</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="week : ${calendarWeeks}">
-            <td class="border px-4 py-2 h-24 align-top" th:each="day : ${week}" th:text="${day.dayOfMonth}">
+            <td class="border align-top p-2 h-48"
+                th:each="day : ${week}"
+                th:classappend="${day.monthValue != currentMonth} ? ' bg-gray-50 text-gray-400' : ''">
+                <!-- numer dnia -->
+                <div class="flex justify-between items-center">
+                    <div class="font-bold"
+                         th:classappend="${day.monthValue != currentMonth} ? ' text-gray-400' : ''"
+                         th:text="${day.dayOfMonth}">1</div>
+                    <div class="text-xs"
+                         th:classappend="${day.monthValue != currentMonth} ? ' text-gray-300' : ' text-gray-500'"
+                         th:text="${#temporals.format(day, 'dd.MM.yyyy')}">01.01.2025</div>
+                </div>
+
+                <!-- spotkania w tym dniu -->
+                <div class="mt-2 space-y-2">
+                    <div th:if="${meetingsByDate[day] != null}"
+                         th:each="meeting : ${meetingsByDate[day]}"
+                         class="bg-gray-50 border rounded p-2 shadow-sm"
+                         th:classappend="${day.monthValue != currentMonth} ? ' opacity-70' : ''">
+                        <div class="text-sm font-semibold" th:text="${meeting.title}">Tytuł</div>
+                        <div class="text-xs"
+                             th:classappend="${day.monthValue != currentMonth} ? ' text-gray-400' : ' text-gray-600'">
+                            <span th:text="${#temporals.format(meeting.dateTime, 'HH:mm')}">12:00</span>
+                            •
+                            <span th:text="${meeting.location}">Sala A</span>
+                        </div>
+
+                        <!-- Akcje -->
+                        <div class="mt-1 flex flex-wrap items-center gap-3 text-xs">
+                            <a th:href="@{'/meetings/edit'(id=${meeting.id})}"
+                               th:if="${@perm.canEdit(#authentication, meeting, #authentication?.name)}"
+                               class="text-blue-600 hover:underline">Edytuj</a>
+
+                            <a th:href="@{'/meetings/delete/' + ${meeting.id}}"
+                               th:if="${@perm.canDelete(#authentication, meeting, #authentication?.name)}"
+                               onclick="return confirm('Czy na pewno chcesz usunąć to spotkanie?');"
+                               class="text-red-600 hover:underline">Usuń</a>
+
+                            <!-- Komentarz (dostępny dla zalogowanych) -->
+                            <a href="#"
+                               th:if="${#authorization.expression('isAuthenticated()')}"
+                               th:attr="data-target=${'cmt-' + meeting.id}"
+                               onclick="document.getElementById(this.getAttribute('data-target')).classList.toggle('hidden'); return false;"
+                               class="text-gray-700 hover:underline">💬 Komentuj</a>
+                        </div>
+
+                        <!-- Szybki formularz komentarza -->
+                        <div class="hidden mt-2" th:id="${'cmt-' + meeting.id}">
+                            <form action="/calendar/comment/add" method="post" class="space-y-2">
+                                <input type="hidden" name="meetingId" th:value="${meeting.id}" />
+                                <textarea name="content" required rows="2"
+                                          class="w-full border rounded px-2 py-1 text-sm"
+                                          placeholder="Wpisz komentarz..."></textarea>
+                                <div class="flex justify-end">
+                                    <button type="submit"
+                                            class="text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">
+                                        Dodaj komentarz
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </td>
         </tr>
         </tbody>
@@ -63,23 +132,37 @@
 <div id="addMeetingModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
     <div class="bg-white p-6 rounded shadow-lg w-96">
         <h3 class="text-lg font-semibold mb-4">Nowe Spotkanie</h3>
-        <form action="/meetings/add" method="post">
-            <label class="block">Tytuł:
-                <input type="text" name="title" required class="w-full border p-1 rounded"/>
+        <form action="/meetings/add" method="post" class="space-y-3">
+            <label class="block text-sm">Tytuł:
+                <input type="text" name="title" required class="w-full border p-2 rounded"/>
             </label>
-            <label class="block mt-2">Opis:
-                <textarea name="description" class="w-full border p-1 rounded"></textarea>
+            <label class="block text-sm">Opis:
+                <textarea name="description" class="w-full border p-2 rounded" rows="3"></textarea>
             </label>
-            <label class="block mt-2">Data i czas:
-                <input type="datetime-local" name="dateTime" required class="w-full border p-1 rounded"/>
+            <label class="block text-sm">Data i czas:
+                <input type="datetime-local" name="dateTime" required class="w-full border p-2 rounded"/>
             </label>
-            <label class="block mt-2">Lokalizacja:
-                <input type="text" name="location" class="w-full border p-1 rounded"/>
+            <label class="block text-sm">Lokalizacja:
+                <input type="text" name="location" class="w-full border p-2 rounded"/>
             </label>
-            <div class="mt-4 flex justify-end">
-                <button type="submit" class="bg-green-600 hover:bg-green-700 text-white py-1 px-3 rounded">Zapisz</button>
+
+            <!-- Przypisanie tylko dla admin/manager -->
+            <div th:if="${@perm.canAssign(#authentication)}" class="pt-1">
+                <label class="block text-sm">Przypisz użytkownika:
+                    <select name="userId" class="w-full border p-2 rounded">
+                        <option value="" selected>— domyślnie: ja —</option>
+                        <option th:each="u : ${allUsers}"
+                                th:value="${u.id}"
+                                th:text="${u.firstName + ' ' + u.lastName + ' [' + u.roles.iterator().next().name + ']'}">
+                        </option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="mt-4 flex justify-end gap-2">
                 <button type="button" onclick="document.getElementById('addMeetingModal').classList.add('hidden')"
-                        class="ml-2 py-1 px-3">Anuluj</button>
+                        class="py-1 px-3">Anuluj</button>
+                <button type="submit" class="bg-green-600 hover:bg-green-700 text-white py-1 px-3 rounded">Zapisz</button>
             </div>
         </form>
     </div>

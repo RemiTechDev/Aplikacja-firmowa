@@ -48,6 +48,8 @@ public class Meeting {
         this.user = user;
     }
 
+
+
     // === Gettery i Settery ===
 
     public Long getId() { return id; }
@@ -70,6 +72,15 @@ public class Meeting {
 
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
+
+    public List<MeetingComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<MeetingComment> comments) {
+        this.comments = comments;
+    }
+
 
     @Override
     public String toString() {

@@ -43,7 +43,7 @@ public class User {
     private LocalDateTime signUpDate;
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -65,7 +65,7 @@ public class User {
         this.enabled = true;
     }
 
-    public boolean hasRole(String roleName) {
+    public boolean hasRole(ERoles roleName) {
         return roles.stream().anyMatch(r -> r.getName().equals(roleName));
     }
 

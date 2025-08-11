@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edytuj Spotkanie</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-6 text-gray-900">
+<div class="max-w-3xl mx-auto bg-white p-6 rounded shadow-lg">
+    <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-bold">Edytuj Spotkanie</h2>
+        <a th:href="@{/calendar}" class="text-blue-600 hover:underline text-sm">← Powrót do kalendarza</a>
+    </div>
+
+    <!-- Formularz edycji spotkania -->
+    <form action="/meetings/edit" method="post" class="space-y-4">
+        <input type="hidden" name="id" th:value="${meeting.id}"/>
+
+        <div>
+            <label class="block font-medium mb-1">Tytuł:</label>
+            <input type="text" name="title" th:value="${meeting.title}" class="w-full border rounded px-3 py-2"/>
+        </div>
+
+        <div>
+            <label class="block font-medium mb-1">Opis:</label>
+            <textarea name="description" class="w-full border rounded px-3 py-2" rows="3" th:text="${meeting.description}"></textarea>
+        </div>
+
+        <div>
+            <label class="block font-medium mb-1">Lokalizacja:</label>
+            <input type="text" name="location" th:value="${meeting.location}" class="w-full border rounded px-3 py-2"/>
+        </div>
+
+        <div>
+            <label class="block font-medium mb-1">Data i czas:</label>
+            <!-- UWAGA: podwójne apostrofy wokół T -->
+            <input type="datetime-local"
+                   name="dateTime"
+                   th:value="${#temporals.format(meeting.dateTime, 'yyyy-MM-dd''T''HH:mm')}"
+                   class="w-full border rounded px-3 py-2"/>
+        </div>
+
+        <div>
+            <label class="block font-medium mb-1">Status spotkania:</label>
+            <select name="status" class="w-full border rounded px-3 py-2">
+                <option th:each="status : ${statuses}"
+                        th:value="${status}"
+                        th:text="${status}"
+                        th:selected="${status == meeting.status}">
+                </option>
+            </select>
+        </div>
+
+        <!-- Zmiana właściciela tylko dla ADMIN/MANAGER -->
+        <div th:if="${#authorization.expression('hasRole(''ADMIN_ROLE'') or hasRole(''MANAGER_ROLE'')')}">
+            <label class="block font-medium mb-1">Przypisz użytkownika:</label>
+            <select name="userId" class="w-full border rounded px-3 py-2">
+                <option value="">Wybierz użytkownika</option>
+                <option th:each="u : ${allUsers}"
+                        th:value="${u.id}"
+                        th:text="${u.firstName + ' ' + u.lastName + ' [' + u.roles.iterator().next().name + ']'}"
+                        th:selected="${u.id == meeting.user.id}">
+                </option>
+            </select>
+        </div>
+
+        <!-- Komentarz przy zmianie statusu -->
+        <div>
+            <label class="block font-medium mb-1">Komentarz do zmiany statusu (opcjonalnie):</label>
+            <textarea name="statusComment"
+                      placeholder="Wpisz komentarz o zmianie statusu (jeśli zmieniasz status)"
+                      class="w-full border rounded px-3 py-2"
+                      rows="3"></textarea>
+        </div>
+
+        <div class="flex justify-between mt-4">
+            <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
+                Zapisz
+            </button>
+            <a th:href="@{/calendar}" class="text-gray-600 hover:text-gray-800">Anuluj</a>
+        </div>
+    </form>
+
+    <!-- Sekcja komentarzy -->
+    <div class="mt-8">
+        <h3 class="text-xl font-semibold mb-2">Komentarze do spotkania</h3>
+        <div th:if="${#lists.isEmpty(comments)}">
+            <p class="text-gray-600">Brak komentarzy.</p>
+        </div>
+        <ul th:each="comment : ${comments}" class="space-y-2">
+            <li class="bg-gray-100 p-3 rounded shadow-sm">
+                <span class="font-semibold text-blue-600" th:text="${comment.author.login}"></span>:
+                <span th:text="${comment.content}"></span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Formularz dodawania zwykłego komentarza -->
+    <div th:if="${#authorization.expression('hasRole(''ADMIN_ROLE'') or hasRole(''MANAGER_ROLE'')')}" class="mt-6">
+        <h4 class="text-lg font-semibold mb-2">Dodaj komentarz</h4>
+        <form action="/calendar/comment/add" method="post" class="space-y-2">
+            <input type="hidden" name="meetingId" th:value="${meeting.id}"/>
+            <textarea name="content" required rows="3" class="w-full border rounded px-3 py-2" placeholder="Wpisz komentarz..."></textarea>
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Dodaj komentarz</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

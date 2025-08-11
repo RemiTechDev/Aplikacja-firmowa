@@ -1,13 +1,11 @@
 package com.aplikacja.Aplikacja.firmowa.Controller;
 
+import com.aplikacja.Aplikacja.firmowa.Model.LoginHistory;
 import com.aplikacja.Aplikacja.firmowa.Model.Meeting;
 import com.aplikacja.Aplikacja.firmowa.Model.Role;
 import com.aplikacja.Aplikacja.firmowa.Model.User;
+import com.aplikacja.Aplikacja.firmowa.Repositories.*;
 import com.aplikacja.Aplikacja.firmowa.Repositories.MeetingRepository;
-import com.aplikacja.Aplikacja.firmowa.Repositories.DocumentRepository;
-import com.aplikacja.Aplikacja.firmowa.Repositories.MeetingRepository;
-import com.aplikacja.Aplikacja.firmowa.Repositories.RoleRepository;
-import com.aplikacja.Aplikacja.firmowa.Repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,6 +32,9 @@ public class AdminViewController {
     private PasswordEncoder passwordEncoder;
     private final DocumentRepository documentRepository;
     private final MeetingRepository meetingRepository;
+
+    @Autowired
+    private LoginHistoryRepository loginHistoryRepository;
 
 
     private final UserRepository userRepository;
@@ -137,7 +138,8 @@ public class AdminViewController {
         userRepository.save(user);
         return "redirect:/admin/users";
     }
-// Usuwanie użytkowników przez administratora
+
+    // Usuwanie użytkowników przez administratora
     @GetMapping("/users/delete/{id}")
     public String deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
@@ -153,10 +155,21 @@ public class AdminViewController {
     @GetMapping("/dashboard/extended")
     public String dashboardView(Model model) {
         model.addAttribute("documents", documentRepository.findAll());
-        model.addAttribute("loginHistory", List.of()); // To możesz kiedyś uzupełnić
         model.addAttribute("upcomingMeetings", meetingRepository.findTop5ByOrderByDateTimeAsc());
-        return "admin_dashboard"; // plik: admin_dashboard.html
+
+        List<LoginHistory> loginHistory = loginHistoryRepository.findTop20ByOrderByLoginTimeDesc();
+        loginHistory.forEach(entry -> {
+            if (entry.getName() == null || entry.getName().isBlank()) {
+                entry.setName(entry.getUser() != null ? entry.getUser().getFirstName() + " " + entry.getUser().getLastName() : "Nieznany użytkownik");
+            }
+            if (entry.getRole() == null || entry.getRole().isBlank()) {
+                entry.setRole(entry.getUser() != null && !entry.getUser().getRoles().isEmpty()
+                        ? entry.getUser().getRoles().iterator().next().getName().name()
+                        : "BRAK");
+            }
+        });
+
+        model.addAttribute("loginHistory", loginHistory);
+        return "admin_dashboard";
     }
-
-
 }

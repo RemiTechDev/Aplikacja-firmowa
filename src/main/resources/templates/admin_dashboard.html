@@ -38,7 +38,7 @@
                 <h5>👤 Admin</h5>
             </div>
             <ul class="nav nav-pills flex-column">
-                <li class="nav-item"><a href="/admin/dashboard" class="nav-link">📊 Dashboard</a></li>
+                <li class="nav-item"><a href="/admin/dashboard/extended" class="nav-link">📊 Dashboard</a></li>
                 <li class="nav-item"><a href="/admin/users" class="nav-link">👥 Zarządzanie użytkownikami</a></li>
                 <li class="nav-item"><a href="/admin/documents" class="nav-link">📂 Dokumenty</a></li>
                 <li class="nav-item"><a href="/calendar" class="nav-link">🗓️ Kalendarz</a></li>
@@ -102,8 +102,8 @@
             <!-- Last documents -->
             <h4>📂 Ostatnie dokumenty</h4>
             <div class="row g-3 mb-4">
-                <div th:if="${#lists.isEmpty(documents)}" class="text-muted">Brak dokumentów do wyświetlenia</div>
-                <div th:each="doc : ${documents}" class="col-md-4">
+                <div th:if="${documents != null and #lists.isEmpty(documents)}" class="text-muted">Brak dokumentów do wyświetlenia</div>
+                <div th:each="doc : ${documents}" class="col-md-4" th:if="${documents != null}">
                     <div class="card p-3">
                         <i class="bi bi-file-earmark-text-fill fs-1 text-primary"></i>
                         <h6 th:text="${doc.title}">Tytuł</h6>
@@ -121,6 +121,7 @@
                         <th>Data</th>
                         <th>Tytuł</th>
                         <th>Opis</th>
+                        <th>Akcje</th> <!-- Nowa kolumna -->
                     </tr>
                     </thead>
                     <tbody>
@@ -128,9 +129,19 @@
                         <td th:text="${#temporals.format(meeting.dateTime, 'yyyy-MM-dd HH:mm')}">2025-08-01 12:00</td>
                         <td th:text="${meeting.title}">Tytuł</td>
                         <td th:text="${meeting.description}">Opis</td>
+                        <td>
+                            <a th:href="@{'/meetings/edit/' + ${meeting.id}}" class="btn btn-sm btn-outline-primary me-1">
+                                <i class="bi bi-pencil-square"></i> Edytuj
+                            </a>
+                            <a th:href="@{'/meetings/delete/' + ${meeting.id}}"
+                               class="btn btn-sm btn-outline-danger"
+                               onclick="return confirm('Czy na pewno chcesz usunąć to spotkanie?');">
+                                <i class="bi bi-trash"></i> Usuń
+                            </a>
+                        </td>
                     </tr>
                     <tr th:if="${#lists.isEmpty(upcomingMeetings)}">
-                        <td colspan="3" class="text-center text-muted">Brak zaplanowanych spotkań</td>
+                        <td colspan="4" class="text-center text-muted">Brak zaplanowanych spotkań</td>
                     </tr>
                     </tbody>
                 </table>
@@ -151,9 +162,9 @@
                     <tbody>
                     <tr th:each="entry : ${loginHistory}">
                         <td th:text="${entry.name}">Jan Kowalski</td>
-                        <td th:text="${entry.role}">User</td>
-                        <td th:text="${entry.loginTime}">2024-07-21 10:00</td>
-                        <td th:text="${entry.logoutTime}">2024-07-21 14:00</td>
+                        <td th:text="${entry.role}">ADMIN_ROLE</td>
+                        <td th:text="${#temporals.format(entry.loginTime, 'yyyy-MM-dd HH:mm')}">2025-08-05 11:00</td>
+                        <td th:text="${entry.logoutTime != null ? #temporals.format(entry.logoutTime, 'yyyy-MM-dd HH:mm') : '—'}">—</td>
                     </tr>
                     <tr th:if="${#lists.isEmpty(loginHistory)}">
                         <td colspan="4" class="text-center text-muted">Brak danych logowania</td>

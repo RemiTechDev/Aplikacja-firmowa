@@ -16,9 +16,19 @@ import java.util.List;
 @PreAuthorize("hasRole('ADMIN_ROLE')")
 public class AdminDashboardController {
 
+    // Przekierowanie do pełnego widoku z dokumentami, spotkaniami i historią logowań
+    @GetMapping("/admin/dashboard")
+    public String adminDashboardRedirect() {
+        return "redirect:/admin/dashboard/extended";
+    }
+
+    /*
+    // UWAGA: poniższa wersja została przeniesiona do AdminViewController.dashboardView()
+    // i tam działa poprawnie jako '/admin/dashboard/extended'
+    //
+    // Zachowane tutaj wyłącznie jako komentarz, do ewentualnego przeniesienia w przyszłości
+
     private final MeetingRepository meetingRepository;
-
-
 
     @GetMapping("/admin/dashboard")
     public String adminDashboard(Model model, Principal principal) {
@@ -29,4 +39,5 @@ public class AdminDashboardController {
 
         return "admin_dashboard";
     }
+    */
 }

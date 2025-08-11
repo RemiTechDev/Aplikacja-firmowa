@@ -34,14 +34,14 @@ import java.util.Set;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    UserDetailsServiceImpl userDetailsServiceImpl;
+    private UserDetailsServiceImpl userDetailsServiceImpl;
 
     @Autowired
     private AuthenticationEntryPointJWebToken unauthorize;
 
     @Bean
-    public AuthenticationTokenFilter authenticationTokenFilter() {
-        return new AuthenticationTokenFilter();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Override
@@ -55,11 +55,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    @Bean
+    public AuthenticationTokenFilter authenticationTokenFilterBean() {
+        return new AuthenticationTokenFilter();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().ignoringAntMatchers("/h2-console/**").disable()
-                .headers().frameOptions().disable() // dla H2
+                .headers().frameOptions().disable()
 
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorize)
@@ -68,12 +73,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .expressionHandler(mySecurityExpressionHandler())
 
-                .antMatchers("/admin/**").hasRole("ADMIN_ROLE")
+                // WAŻNE: reguła dla /admin/history przed ogólną /admin/**
+                .antMatchers("/admin/history/**")
+                .hasAnyAuthority("ROLE_ADMIN_ROLE", "ROLE_MANAGER_ROLE")
+
+                // reszta admina tylko dla ADMIN_ROLE
+                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN_ROLE")
+
+                .antMatchers("/manager/**").hasAuthority("ROLE_MANAGER_ROLE")
+                .antMatchers("/staff/**").hasAuthority("ROLE_STAFF_ROLE")
+                .antMatchers("/dashboard").hasAuthority("ROLE_USER_ROLE")
 
                 .antMatchers(
-                        "/","/calendar", "/login", "/register", "/user/authorize/**", "/about", "/error",
-                        "/h2-console/**",
-                        "/css/**", "/js/**", "/images/**", "/webjars/**", "/favicon.ico"
+                        "/", "/calendar", "/login", "/register", "/user/authorize/**", "/about", "/error",
+                        "/h2-console/**", "/css/**", "/js/**", "/images/**", "/webjars/**", "/favicon.ico"
                 ).permitAll()
 
                 .anyRequest().authenticated()
@@ -81,8 +94,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-//                .defaultSuccessUrl("/dashboard", true) wcześniej każdy miał domyślny dashboard
-                .successHandler(customLoginSuccessHandler()) //dashboard uzależniony od roli
+                .successHandler(customLoginSuccessHandler())
                 .permitAll()
 
                 .and()
@@ -90,32 +102,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login?logout")
                 .permitAll();
 
-        http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    //Tworzenie hierarchii. Admin domyślnie będzie mógł zarządzać uprawnieniami pozostałych użytkowników
     @Bean
     public RoleHierarchy roleHierarchy() {
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-        String hierarchy  = """
-        ROLE_ADMIN_ROLE > ROLE_MANAGER_ROLE
-        ROLE_MANAGER_ROLE > ROLE_STAFF_ROLE
-        ROLE_STAFF_ROLE > ROLE_USER_ROLE
-        """;
+        String hierarchy = ""
+                + "ROLE_ADMIN_ROLE > ROLE_MANAGER_ROLE\n"
+                + "ROLE_MANAGER_ROLE > ROLE_STAFF_ROLE\n"
+                + "ROLE_STAFF_ROLE > ROLE_USER_ROLE\n";
         roleHierarchy.setHierarchy(hierarchy);
         return roleHierarchy;
     }
 
     @Bean
     public DefaultWebSecurityExpressionHandler mySecurityExpressionHandler() {
-        DefaultWebSecurityExpressionHandler expressionHandler = new DefaultWebSecurityExpressionHandler();
-        expressionHandler.setRoleHierarchy(roleHierarchy());
-        return expressionHandler;
+        DefaultWebSecurityExpressionHandler handler = new DefaultWebSecurityExpressionHandler();
+        handler.setRoleHierarchy(roleHierarchy());
+        return handler;
     }
 
     @Bean
@@ -124,11 +129,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
-
                 Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 
                 if (roles.contains("ROLE_ADMIN_ROLE")) {
                     response.sendRedirect("/admin/dashboard");
+                } else if (roles.contains("ROLE_MANAGER_ROLE")) {
+                    response.sendRedirect("/manager/dashboard");
+                } else if (roles.contains("ROLE_STAFF_ROLE")) {
+                    response.sendRedirect("/staff/dashboard");
                 } else {
                     response.sendRedirect("/dashboard");
                 }
