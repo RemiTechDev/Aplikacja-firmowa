@@ -1,94 +1,191 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title th:text="${title}">Strona główna</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <title>Strona główna</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Bootstrap & Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
 
     <style>
-        body { background: #f8f9fa; padding-top: 4rem; font-family: 'Segoe UI', sans-serif; }
-        .navbar-brand { font-weight: bold; }
-        footer { margin-top: 4rem; padding: 1rem 0; text-align: center; color: #888; }
-        .hero { background: white; padding: 3rem; border-radius: 1rem; box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1); animation: fadeIn 1s ease-in; }
-        .btn-custom { min-width: 180px; margin: 0.3rem; transition: transform 0.2s ease; }
-        .btn-custom:hover { transform: scale(1.05); }
-        .btn-logout {
-            border: none;
-            background: none;
-            color: white;
-            cursor: pointer;
-            padding: 0.5rem 1rem;
+        body {
+            background:#f6f7fb;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
         }
-        .btn-logout:hover {
-            text-decoration: underline;
+        .navbar-brand { font-weight: 700; letter-spacing:.2px; }
+        .hero {
+          background: #fff; border-radius: 1rem; padding: 3rem 2rem;
+          box-shadow: 0 10px 30px rgba(15, 23, 42, .06);
+          margin-top: 2rem;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .btn-xl { padding:.9rem 1.25rem; font-size:1.05rem; }
+        .section { background:#fff; border-radius:1rem; padding:2rem; box-shadow:0 10px 30px rgba(15, 23, 42, .06); }
+        footer { color:#6b7280; padding:2rem 0; }
+        .hero-logo {
+            width: 400px;       /* powiększone logo */
+            max-width: 100%;   /* responsywność na małych ekranach */
+            height: auto;
+            margin-bottom: 2rem;
         }
     </style>
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow">
-    <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}"><i class="bi bi-house-door"></i> Aplikacja Firmowa</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">
+            <i class="bi bi-building-fill"></i> Aplikacja Firmowa
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" th:href="@{/dashboard}"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/documents}"><i class="bi bi-folder"></i> Dokumenty</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/calendar}"><i class="bi bi-calendar-event"></i> Kalendarz</a></li>
 
-                <!-- Pokazuje logowanie i rejestrację tylko dla niezalogowanych -->
-                <li class="nav-item" sec:authorize="isAnonymous()">
-                    <a class="nav-link" th:href="@{/login}"><i class="bi bi-box-arrow-in-right"></i> Logowanie</a>
-                </li>
-                <li class="nav-item" sec:authorize="isAnonymous()">
-                    <a class="nav-link" th:href="@{/register}"><i class="bi bi-person-plus"></i> Rejestracja</a>
+        <div id="mainNav" class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav align-items-lg-center gap-lg-2">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-info-circle"></i> Informacje
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#about-me">O mnie</a></li>
+                        <li><a class="dropdown-item" href="#about-app">O aplikacji</a></li>
+                        <li><a class="dropdown-item" href="#contact">Kontakt</a></li>
+                    </ul>
                 </li>
 
-                <!-- Pokazuje wylogowanie tylko dla zalogowanych -->
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <form th:action="@{/logout}" method="post">
-                        <button type="submit" class="btn-logout nav-link"><i class="bi bi-box-arrow-right"></i> Wyloguj</button>
-                    </form>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="btn btn-outline-light btn-sm ms-lg-2" th:href="@{/login}">
+                        <i class="bi bi-box-arrow-in-right"></i> Zaloguj
+                    </a>
+                </li>
+                <li class="nav-item ms-lg-2" sec:authorize="isAnonymous()">
+                    <a class="btn btn-info btn-sm text-dark" th:href="@{/register}">
+                        <i class="bi bi-person-plus"></i> Zarejestruj
+                    </a>
+                </li>
+                <li class="nav-item ms-lg-2" sec:authorize="isAuthenticated()">
+                    <a class="btn btn-success btn-sm" th:href="@{/dashboard}">
+                        <i class="bi bi-speedometer2"></i> Przejdź do panelu
+                    </a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
-<!-- Główna treść -->
-<main class="container">
-    <div class="hero text-center">
-        <h1>Witaj w aplikacji firmowej</h1>
-        <p>Wybierz jedną z opcji poniżej, aby rozpocząć:</p>
-        <div class="d-flex justify-content-center flex-wrap">
-            <a class="btn btn-outline-primary btn-custom" th:href="@{/dashboard}"><i class="bi bi-speedometer2"></i> Dashboard</a>
-            <a class="btn btn-outline-secondary btn-custom" th:href="@{/documents}"><i class="bi bi-folder"></i> Dokumenty</a>
-            <a class="btn btn-outline-success btn-custom" th:href="@{/calendar}"><i class="bi bi-calendar-event"></i> Kalendarz</a>
+<!-- HERO -->
+<div class="container">
+    <section class="hero text-center">
+        <!-- Powiększony obrazek -->
+        <img src="/css/img/glowne_logo.png" alt="Logo aplikacji" class="hero-logo" />
 
-            <!-- Pokaż tylko dla anonimowych -->
-            <a class="btn btn-outline-dark btn-custom" th:href="@{/login}" sec:authorize="isAnonymous()"><i class="bi bi-box-arrow-in-right"></i> Logowanie</a>
-            <a class="btn btn-outline-info btn-custom" th:href="@{/register}" sec:authorize="isAnonymous()"><i class="bi bi-person-plus"></i> Rejestracja</a>
+        <h1 class="display-5 fw-bold mb-2">Strona główna</h1>
+        <p class="lead text-muted mb-4">
+            Witaj w naszej aplikacji! Zaloguj się lub utwórz konto, aby rozpocząć.
+        </p>
 
-            <!-- Opcjonalnie: komunikat powitalny -->
-            <p class="mt-4" sec:authorize="isAuthenticated()">Miło Cię widzieć z powrotem!</p>
+        <div class="d-flex justify-content-center gap-2 flex-wrap" sec:authorize="isAnonymous()">
+            <a class="btn btn-outline-dark btn-xl" th:href="@{/login}">
+                <i class="bi bi-box-arrow-in-right"></i> Zaloguj
+            </a>
+            <a class="btn btn-primary btn-xl" th:href="@{/register}">
+                <i class="bi bi-person-plus"></i> Zarejestruj
+            </a>
         </div>
-    </div>
-</main>
+    </section>
+</div>
 
-<!-- Stopka -->
-<footer>
-    <p>&copy; 2025 Aplikacja Firmowa. Wszelkie prawa zastrzeżone.</p>
+<!-- O MNIE -->
+<div class="container my-4" id="about-me">
+    <section class="section">
+        <h2 class="h4 mb-3"><i class="bi bi-person-circle"></i> O mnie</h2>
+        <p class="mb-0">
+            Cześć! Nazywam się <strong>Jan Kowalski</strong> i tworzę proste, praktyczne rozwiązania
+            ułatwiające codzienną pracę w firmie. Ta aplikacja powstała z myślą o wygodnym
+            zarządzaniu dokumentami i spotkaniami w jednym miejscu.
+        </p>
+    </section>
+</div>
+
+<!-- O APLIKACJI -->
+<div class="container my-4" id="about-app">
+    <section class="section">
+        <h2 class="h4 mb-3"><i class="bi bi-app-indicator"></i> O aplikacji</h2>
+        <p class="mb-0">
+            Aplikacja umożliwia przechowywanie plików, dodawanie komentarzy, zarządzanie spotkaniami oraz
+            szybki podgląd najważniejszych informacji. Stawiamy na prostotę interfejsu i bezpieczeństwo danych.
+        </p>
+        <p class="mb-0 mt-3">
+            Nasze rozwiązanie jest <strong>multiplatformowe</strong> – działa zarówno na komputerach, jak i urządzeniach mobilnych.
+            Dodatkowo system obsługuje <strong>powiadomienia email</strong>, które przypominają o ważnych spotkaniach lub zadaniach.
+        </p>
+    </section>
+</div>
+
+<!-- KONTAKT -->
+<div class="container my-4" id="contact">
+    <section class="row g-4 align-items-stretch">
+        <div class="col-lg-5">
+            <div class="section h-100">
+                <h2 class="h4 mb-3"><i class="bi bi-telephone"></i> Kontakt</h2>
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-2"><i class="bi bi-envelope"></i> Email: <a href="mailto:kontakt@firma.example">kontakt@firma.example</a></li>
+                    <li class="mb-2"><i class="bi bi-phone"></i> Telefon: +48 555 123 456</li>
+                    <li class="mb-2"><i class="bi bi-geo-alt"></i> Adres: ul. Klonowa 12, 00-950 Warszawa</li>
+                    <li class="mb-2"><i class="bi bi-clock"></i> Godziny: Pon–Pt 9:00–17:00</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-lg-7">
+            <div class="section h-100">
+                <h3 class="h5 mb-3"><i class="bi bi-chat-dots"></i> Formularz kontaktowy</h3>
+                <form method="post" th:action="@{/contact}">
+                    <input type="hidden"
+                           th:if="${_csrf != null}"
+                           th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Imię i nazwisko</label>
+                            <input name="name" type="text" class="form-control" placeholder="Twoje imię i nazwisko" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input name="email" type="email" class="form-control" placeholder="twoj.email@domena.pl" required />
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Temat</label>
+                            <input name="subject" type="text" class="form-control" placeholder="Czego dotyczy wiadomość?" required />
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Wiadomość</label>
+                            <textarea name="message" class="form-control" rows="5" placeholder="Treść wiadomości..." required></textarea>
+                        </div>
+                        <div class="col-12 d-grid d-sm-flex gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-send"></i> Wyślij
+                            </button>
+                            <button type="reset" class="btn btn-outline-secondary">
+                                Wyczyść
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+<footer class="text-center">
+    <div class="container">
+        <small>&copy; 2025 Aplikacja Firmowa. Wszelkie prawa zastrzeżone.</small>
+    </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

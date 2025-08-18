@@ -4,36 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f55d2bdd-bc05-4465-adb1-94abfd5dec11" name="Changes" comment="1. Listenery - podgląd na użytkowników, któzy się logują i wylogowują w danym momencie. aby to działało został odpowiednio zmieniony plik SecurityConfig, oraz dodano odpowiedni Serwis i repozytorium&#10;2. Dodano Panele widokowe dla pozostałych użytkowników ( wymaga dopracowania później).&#10;3. Możliwość dodawania i przypisywania spotkań do konkretnego usera działa zarówno w bazie danych jak i na stronie. &#10;4. Działa możliwośc usuwania i edytowania spotkań.&#10;5. Działa sidebar do historii logowania, gdzie można usuwać rekordy. jest to też kompatybilne z bazą danych.&#10;6. AdminDashboard został zmieniony i teraz automatycznie po zalogowaniu na konto admina jesteśmy przenoszeni na /extended.&#10;7 Przetestowano czy zwykły user może dodawać eventy (stopień podstawowy)&#10;8. Większe rozłożenie uprawnień dla poszczególnych roli.&#10;&#10;P.S. większośc testów wykonywana na koncie administratora, ponieważ na razie chcę doprecyzować starannie jego funkcje">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Dto/CalendarDayDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/DocumentComment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/DocumentCommentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Service/DocumentCommentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/admin_documents.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/document_edit.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/document_view.html" afterDir="false" />
+    <list default="true" id="f55d2bdd-bc05-4465-adb1-94abfd5dec11" name="Changes" comment="Działa cały administrator.&#10;1. Mozliwośc dodawania dokumentów, edycja,usuwanie, komentowanie.&#10;2. Dokumentów są różnego typu&#10;3. Zarządzanie użytkownikami.&#10;4. Historia logowania. Możliwość jej czyszczenia. Na głównym dashboardzie widać ostatnich 5 logowań&#10;5. Kalendarz spotkań. Wydarzenia widać w siatce kalendarza. Można je tam edytować usuwać, komentować. Na dashboardzie widać kilka spotkań  ich statusy oraz do kogo są przypisane">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/AdminViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/AdminViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/CalendarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/CalendarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/DocumentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/DocumentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/MeetingEditController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/MeetingEditController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/Document.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/Document.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/DocumentStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/DocumentStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/DocumentType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/DocumentType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/Meeting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Model/Meeting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/DocumentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/DocumentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/LoginHistoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/LoginHistoryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/MeetingCommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/MeetingCommentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/MeetingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/MeetingRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Service/CalendarService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Service/CalendarService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Service/MeetingCommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Service/MeetingCommentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin_dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin_user_create.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin_user_create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin_user_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin_user_edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin_users.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin_users.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/calendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/calendar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/edit-meeting.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/edit-meeting.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/calendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/calendar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,6 +91,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\hrabi\IdeaProjects\Aplikacja-firmowa\src\main\resources\static\css\css" />
       <recent name="C:\Users\Admin\IdeaProjects\Aplikacja-firmowa\src\main\resources\static\css\css" />
     </key>
   </component>
@@ -328,7 +306,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754907352335</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Działa cały administrator.&#10;1. Mozliwośc dodawania dokumentów, edycja,usuwanie, komentowanie.&#10;2. Dokumentów są różnego typu&#10;3. Zarządzanie użytkownikami.&#10;4. Historia logowania. Możliwość jej czyszczenia. Na głównym dashboardzie widać ostatnich 5 logowań&#10;5. Kalendarz spotkań. Wydarzenia widać w siatce kalendarza. Można je tam edytować usuwać, komentować. Na dashboardzie widać kilka spotkań  ich statusy oraz do kogo są przypisane">
+      <option name="closed" value="true" />
+      <created>1755499169973</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1755499169973</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -351,7 +337,8 @@
     <MESSAGE value="Dodano:&#10;1. wstępny widok kalendarza w panelu administratora&#10;2. Administrator od teraz może zmieniać hasło użytkownikom.&#10;3. Administrator może usuwać konta użytkowników&#10;4. Dodano klasy, które w późniejszym etapie będa realizować spotkania przez wszystkich użytkowników oraz dokumenty." />
     <MESSAGE value="Zrobiono:&#10;Od teraz działa kalendarz i istnieje możliwość dodawania wydarzeń (meetings)&#10;Administrator widzi te wydarzenia w swoim głównym panelu&#10;&#10;Trwa próba zaintegrowania widoczności spotkań w siatce kalendarza. &#10;trwa próba dodania opcji edycji i usuwania spotkań" />
     <MESSAGE value="1. Listenery - podgląd na użytkowników, któzy się logują i wylogowują w danym momencie. aby to działało został odpowiednio zmieniony plik SecurityConfig, oraz dodano odpowiedni Serwis i repozytorium&#10;2. Dodano Panele widokowe dla pozostałych użytkowników ( wymaga dopracowania później).&#10;3. Możliwość dodawania i przypisywania spotkań do konkretnego usera działa zarówno w bazie danych jak i na stronie. &#10;4. Działa możliwośc usuwania i edytowania spotkań.&#10;5. Działa sidebar do historii logowania, gdzie można usuwać rekordy. jest to też kompatybilne z bazą danych.&#10;6. AdminDashboard został zmieniony i teraz automatycznie po zalogowaniu na konto admina jesteśmy przenoszeni na /extended.&#10;7 Przetestowano czy zwykły user może dodawać eventy (stopień podstawowy)&#10;8. Większe rozłożenie uprawnień dla poszczególnych roli.&#10;&#10;P.S. większośc testów wykonywana na koncie administratora, ponieważ na razie chcę doprecyzować starannie jego funkcje" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. Listenery - podgląd na użytkowników, któzy się logują i wylogowują w danym momencie. aby to działało został odpowiednio zmieniony plik SecurityConfig, oraz dodano odpowiedni Serwis i repozytorium&#10;2. Dodano Panele widokowe dla pozostałych użytkowników ( wymaga dopracowania później).&#10;3. Możliwość dodawania i przypisywania spotkań do konkretnego usera działa zarówno w bazie danych jak i na stronie. &#10;4. Działa możliwośc usuwania i edytowania spotkań.&#10;5. Działa sidebar do historii logowania, gdzie można usuwać rekordy. jest to też kompatybilne z bazą danych.&#10;6. AdminDashboard został zmieniony i teraz automatycznie po zalogowaniu na konto admina jesteśmy przenoszeni na /extended.&#10;7 Przetestowano czy zwykły user może dodawać eventy (stopień podstawowy)&#10;8. Większe rozłożenie uprawnień dla poszczególnych roli.&#10;&#10;P.S. większośc testów wykonywana na koncie administratora, ponieważ na razie chcę doprecyzować starannie jego funkcje" />
+    <MESSAGE value="Działa cały administrator.&#10;1. Mozliwośc dodawania dokumentów, edycja,usuwanie, komentowanie.&#10;2. Dokumentów są różnego typu&#10;3. Zarządzanie użytkownikami.&#10;4. Historia logowania. Możliwość jej czyszczenia. Na głównym dashboardzie widać ostatnich 5 logowań&#10;5. Kalendarz spotkań. Wydarzenia widać w siatce kalendarza. Można je tam edytować usuwać, komentować. Na dashboardzie widać kilka spotkań  ich statusy oraz do kogo są przypisane" />
+    <option name="LAST_COMMIT_MESSAGE" value="Działa cały administrator.&#10;1. Mozliwośc dodawania dokumentów, edycja,usuwanie, komentowanie.&#10;2. Dokumentów są różnego typu&#10;3. Zarządzanie użytkownikami.&#10;4. Historia logowania. Możliwość jej czyszczenia. Na głównym dashboardzie widać ostatnich 5 logowań&#10;5. Kalendarz spotkań. Wydarzenia widać w siatce kalendarza. Można je tam edytować usuwać, komentować. Na dashboardzie widać kilka spotkań  ich statusy oraz do kogo są przypisane" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

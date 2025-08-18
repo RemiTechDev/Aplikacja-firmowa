@@ -86,6 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers(
                         "/", "/calendar", "/login", "/register", "/user/authorize/**", "/about", "/error",
+                        "/contact",
                         "/h2-console/**", "/css/**", "/js/**", "/images/**", "/webjars/**", "/favicon.ico"
                 ).permitAll()
 
