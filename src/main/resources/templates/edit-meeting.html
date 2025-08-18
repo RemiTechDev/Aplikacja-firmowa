@@ -13,7 +13,7 @@
     </div>
 
     <!-- Formularz edycji spotkania -->
-    <form action="/meetings/edit" method="post" class="space-y-4">
+    <form th:action="@{/meetings/edit}" method="post" class="space-y-4">
         <input type="hidden" name="id" th:value="${meeting.id}"/>
 
         <div>
@@ -33,7 +33,7 @@
 
         <div>
             <label class="block font-medium mb-1">Data i czas:</label>
-            <!-- UWAGA: podwójne apostrofy wokół T -->
+            <!-- podwójne apostrofy wokół T -->
             <input type="datetime-local"
                    name="dateTime"
                    th:value="${#temporals.format(meeting.dateTime, 'yyyy-MM-dd''T''HH:mm')}"
@@ -64,15 +64,6 @@
             </select>
         </div>
 
-        <!-- Komentarz przy zmianie statusu -->
-        <div>
-            <label class="block font-medium mb-1">Komentarz do zmiany statusu (opcjonalnie):</label>
-            <textarea name="statusComment"
-                      placeholder="Wpisz komentarz o zmianie statusu (jeśli zmieniasz status)"
-                      class="w-full border rounded px-3 py-2"
-                      rows="3"></textarea>
-        </div>
-
         <div class="flex justify-between mt-4">
             <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
                 Zapisz
@@ -95,11 +86,10 @@
         </ul>
     </div>
 
-    <!-- Formularz dodawania zwykłego komentarza -->
-    <div th:if="${#authorization.expression('hasRole(''ADMIN_ROLE'') or hasRole(''MANAGER_ROLE'')')}" class="mt-6">
+    <!-- Formularz dodawania komentarza (zostaje na tej stronie) -->
+    <div class="mt-6">
         <h4 class="text-lg font-semibold mb-2">Dodaj komentarz</h4>
-        <form action="/calendar/comment/add" method="post" class="space-y-2">
-            <input type="hidden" name="meetingId" th:value="${meeting.id}"/>
+        <form th:action="@{|/meetings/${meeting.id}/comments|}" method="post" class="space-y-2">
             <textarea name="content" required rows="3" class="w-full border rounded px-3 py-2" placeholder="Wpisz komentarz..."></textarea>
             <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Dodaj komentarz</button>
         </form>

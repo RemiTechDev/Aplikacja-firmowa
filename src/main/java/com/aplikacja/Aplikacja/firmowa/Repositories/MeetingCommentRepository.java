@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface MeetingCommentRepository extends JpaRepository<MeetingComment, Long> {
-    List<MeetingComment> findByMeeting_Id(Long meetingId);
+    List<MeetingComment> findByMeeting_IdOrderByCreatedAtAsc(Long meetingId);
 }

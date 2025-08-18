@@ -4,23 +4,19 @@ import com.aplikacja.Aplikacja.firmowa.Model.ERoles;
 import com.aplikacja.Aplikacja.firmowa.Model.Meeting;
 import com.aplikacja.Aplikacja.firmowa.Model.User;
 import com.aplikacja.Aplikacja.firmowa.Repositories.MeetingRepository;
-import com.aplikacja.Aplikacja.firmowa.Service.CalendarService;
 import com.aplikacja.Aplikacja.firmowa.Repositories.UserRepository;
+import com.aplikacja.Aplikacja.firmowa.Service.CalendarService;
+import com.aplikacja.Aplikacja.firmowa.Dto.CalendarDayDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.security.Principal;
-import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,26 +30,25 @@ public class CalendarController {
 
     @GetMapping("/calendar")
     public String calendar(Model model, Principal principal) {
-        List<List<LocalDate>> calendarWeeks = calendarService.generateCalendarWeeks();
-        model.addAttribute("calendarWeeks", calendarWeeks);
+        YearMonth ym = YearMonth.now();
+        YearMonth next = ym.plusMonths(1);
+        Locale pl = new Locale("pl", "PL");
 
-        var ym = YearMonth.now();
-        var next = ym.plusMonths(1);
-        var pl = new Locale("pl", "PL");
         model.addAttribute("currentMonthName", ym.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, pl));
         model.addAttribute("currentYear", ym.getYear());
         model.addAttribute("nextMonthName", next.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, pl));
         model.addAttribute("nextYear", next.getYear());
+        model.addAttribute("currentMonth", ym.getMonthValue());
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        String username = principal != null ? principal.getName() : null;
+        String username = (principal != null) ? principal.getName() : null;
         Set<String> roleNames = Set.of();
+
         if (username != null) {
             userRepository.findByLogin(username).ifPresent(u -> model.addAttribute("roles", u.getRoles()));
             roleNames = userRepository.findByLogin(username)
                     .map(User::getRoles).orElseGet(Set::of)
-                    .stream().map(r -> r.getName().name())
+                    .stream()
+                    .map(r -> r.getName().name())
                     .collect(Collectors.toSet());
         }
 
@@ -67,11 +62,10 @@ public class CalendarController {
             model.addAttribute("notLoggedIn", true);
         }
 
-        Map<LocalDate, List<Meeting>> meetingsByDate = meetings.stream()
-                .collect(Collectors.groupingBy(m -> m.getDateTime().toLocalDate()));
-        model.addAttribute("meetingsByDate", meetingsByDate);
+        // tu korzystamy z CalendarDayDto
+        List<List<CalendarDayDto>> grid = calendarService.buildCalendarWithMeetings(ym, meetings);
+        model.addAttribute("grid", grid);
 
-        // lista do <select> – zgodnie z regułami
         List<User> assignable;
         if (roleNames.contains("ADMIN_ROLE")) {
             assignable = userRepository.findAll();

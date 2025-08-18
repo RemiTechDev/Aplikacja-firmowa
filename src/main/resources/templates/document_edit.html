@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edycja dokumentu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-4">
+    <h3>Edycja dokumentu</h3>
+    <form th:action="@{/documents/edit}" method="post" class="card p-3">
+        <input type="hidden" name="id" th:value="${doc.id}">
+        <div class="mb-3">
+            <label class="form-label">Tytuł</label>
+            <input class="form-control" name="title" th:value="${doc.title}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select class="form-select" name="status">
+                <option th:each="s : ${T(com.aplikacja.Aplikacja.firmowa.Model.DocumentStatus).values()}"
+                        th:value="${s}" th:text="${s}" th:selected="${s == doc.status}"></option>
+            </select>
+        </div>
+        <div class="text-end">
+            <a href="/admin/documents" class="btn btn-outline-secondary">Anuluj</a>
+            <button class="btn btn-primary" type="submit">Zapisz</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

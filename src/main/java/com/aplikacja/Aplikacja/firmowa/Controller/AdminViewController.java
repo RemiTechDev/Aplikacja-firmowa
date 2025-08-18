@@ -1,7 +1,6 @@
 package com.aplikacja.Aplikacja.firmowa.Controller;
 
 import com.aplikacja.Aplikacja.firmowa.Model.LoginHistory;
-import com.aplikacja.Aplikacja.firmowa.Model.Meeting;
 import com.aplikacja.Aplikacja.firmowa.Model.Role;
 import com.aplikacja.Aplikacja.firmowa.Model.User;
 import com.aplikacja.Aplikacja.firmowa.Repositories.*;
@@ -20,8 +19,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-//Klasa odpowiedzialna za zwrot widoków html
-
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin")
@@ -30,23 +27,22 @@ public class AdminViewController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     private final DocumentRepository documentRepository;
     private final MeetingRepository meetingRepository;
 
     @Autowired
     private LoginHistoryRepository loginHistoryRepository;
 
-
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-
 
     //  Widok listy użytkowników
     @GetMapping("/users")
     public String listUsers(Model model) {
         List<User> users = userRepository.findAll();
         model.addAttribute("users", users);
-        return "admin_users"; // <- plik HTML: src/main/resources/templates/admin_users.html
+        return "admin_users";
     }
 
     // Formularz edycji użytkownika
@@ -56,17 +52,14 @@ public class AdminViewController {
         if (optionalUser.isEmpty()) {
             return "redirect:/admin/users";
         }
-
         User user = optionalUser.get();
         List<Role> allRoles = roleRepository.findAll();
-
         model.addAttribute("user", user);
         model.addAttribute("allRoles", allRoles);
-
-        return "admin_user_edit"; // <- plik HTML: src/main/resources/templates/admin_user_edit.html
+        return "admin_user_edit";
     }
 
-    //  Obsługa formularza - aktualizacja ról i statusu aktywności
+    //  Aktualizacja ról / statusu / hasła
     @PostMapping("/users/update/{id}")
     public String updateUser(@PathVariable Long id,
                              @RequestParam(value = "roleIds", required = false) List<Long> roleIds,
@@ -77,10 +70,8 @@ public class AdminViewController {
         if (optionalUser.isEmpty()) {
             return "redirect:/admin/users";
         }
-
         User user = optionalUser.get();
 
-        //Aktualizowanie i zmiana hasła
         if (newPassword != null && !newPassword.isEmpty()) {
             user.setPassword(passwordEncoder.encode(newPassword));
         }
@@ -114,8 +105,6 @@ public class AdminViewController {
                              @RequestParam(value = "roleIds", required = false) List<Long> roleIds,
                              @RequestParam(value = "enabled", defaultValue = "false") boolean enabled) {
 
-//        Role role = roleRepository.findById(roleIds).orElseThrow();
-
         Set<Role> selectedRoles = new HashSet<>();
         if (roleIds != null) {
             for (Long roleId : roleIds) {
@@ -130,37 +119,31 @@ public class AdminViewController {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEnabled(enabled);
-//        user.setRoles(Set.of(role));
         user.setRoles(selectedRoles);
-        user.setSignUpDate(LocalDateTime.now()); //rozwiązanie problemu z datą tworzenia konta
-
+        user.setSignUpDate(LocalDateTime.now());
 
         userRepository.save(user);
         return "redirect:/admin/users";
     }
 
-    // Usuwanie użytkowników przez administratora
+    // Usuwanie użytkowników
     @GetMapping("/users/delete/{id}")
     public String deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
         return "redirect:/admin/users";
     }
 
-    @GetMapping("/documents")
-    public String listDocuments(Model model) {
-        model.addAttribute("docs", documentRepository.findAll());
-        return "admin_documents";
-    }
-
     @GetMapping("/dashboard/extended")
     public String dashboardView(Model model) {
-        model.addAttribute("documents", documentRepository.findAll());
         model.addAttribute("upcomingMeetings", meetingRepository.findTop5ByOrderByDateTimeAsc());
+        model.addAttribute("latestDocuments", documentRepository.findTop2ByOrderByCreatedDesc());
 
-        List<LoginHistory> loginHistory = loginHistoryRepository.findTop20ByOrderByLoginTimeDesc();
-        loginHistory.forEach(entry -> {
+        List<LoginHistory> preview = loginHistoryRepository.findTop5ByOrderByLoginTimeDesc();
+        preview.forEach(entry -> {
             if (entry.getName() == null || entry.getName().isBlank()) {
-                entry.setName(entry.getUser() != null ? entry.getUser().getFirstName() + " " + entry.getUser().getLastName() : "Nieznany użytkownik");
+                entry.setName(entry.getUser() != null
+                        ? entry.getUser().getFirstName() + " " + entry.getUser().getLastName()
+                        : "Nieznany użytkownik");
             }
             if (entry.getRole() == null || entry.getRole().isBlank()) {
                 entry.setRole(entry.getUser() != null && !entry.getUser().getRoles().isEmpty()
@@ -169,7 +152,9 @@ public class AdminViewController {
             }
         });
 
-        model.addAttribute("loginHistory", loginHistory);
+        model.addAttribute("loginHistoryPreview", preview);
+        model.addAttribute("loginHistoryTotal", loginHistoryRepository.count());
+
         return "admin_dashboard";
     }
 }

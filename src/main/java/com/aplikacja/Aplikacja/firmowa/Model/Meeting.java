@@ -29,9 +29,15 @@ public class Meeting {
     @Column(name = "status")
     private MeetingStatus status = MeetingStatus.PLANOWANE;
 
+    /** Do kogo spotkanie jest przypisane (właściciel) */
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    /** Kto utworzył spotkanie (twórca) */
+    @ManyToOne
+    @JoinColumn(name = "created_by_id") // nullable=true dla zgodności z istniejącymi danymi
+    private User createdBy;
 
     @OneToMany(mappedBy = "meeting", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MeetingComment> comments = new ArrayList<>();
@@ -39,7 +45,12 @@ public class Meeting {
     // === Konstruktory ===
     public Meeting() {}
 
-    public Meeting(String title, String description, LocalDateTime dateTime, String location, MeetingStatus status, User user) {
+    public Meeting(String title,
+                   String description,
+                   LocalDateTime dateTime,
+                   String location,
+                   MeetingStatus status,
+                   User user) {
         this.title = title;
         this.description = description;
         this.dateTime = dateTime;
@@ -47,8 +58,6 @@ public class Meeting {
         this.status = status;
         this.user = user;
     }
-
-
 
     // === Gettery i Settery ===
 
@@ -73,14 +82,11 @@ public class Meeting {
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
 
-    public List<MeetingComment> getComments() {
-        return comments;
-    }
+    public User getCreatedBy() { return createdBy; }
+    public void setCreatedBy(User createdBy) { this.createdBy = createdBy; }
 
-    public void setComments(List<MeetingComment> comments) {
-        this.comments = comments;
-    }
-
+    public List<MeetingComment> getComments() { return comments; }
+    public void setComments(List<MeetingComment> comments) { this.comments = comments; }
 
     @Override
     public String toString() {
@@ -89,6 +95,7 @@ public class Meeting {
                 ", title='" + title + '\'' +
                 ", dateTime=" + dateTime +
                 ", user=" + (user != null ? user.getLogin() : "null") +
+                ", createdBy=" + (createdBy != null ? createdBy.getLogin() : "null") +
                 '}';
     }
 }

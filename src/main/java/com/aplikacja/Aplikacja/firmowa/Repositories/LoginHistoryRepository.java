@@ -10,10 +10,13 @@ import java.util.Optional;
 
 public interface LoginHistoryRepository extends JpaRepository<LoginHistory, Long> {
 
-    // do kart na dashboardzie:
+    // podgląd na dashboardzie (5 ostatnich)
+    List<LoginHistory> findTop5ByOrderByLoginTimeDesc();
+
+    // wcześniejsze: używane gdzie indziej (możesz zostawić, ale nie jest już potrzebne na dashboardzie)
     List<LoginHistory> findTop20ByOrderByLoginTimeDesc();
 
-    // do listowania z paginacją:
+    // lista z paginacją dla /admin/history
     Page<LoginHistory> findAllByOrderByLoginTimeDesc(Pageable pageable);
 
     // do zamykania sesji przy logout:

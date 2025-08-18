@@ -1,4 +1,3 @@
-<!-- templates/calendar.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -58,29 +57,29 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="week : ${calendarWeeks}">
+        <tr th:each="week : ${grid}">
             <td class="border align-top p-2 h-48"
                 th:each="day : ${week}"
-                th:classappend="${day.monthValue != currentMonth} ? ' bg-gray-50 text-gray-400' : ''">
-                <!-- numer dnia -->
+                th:classappend="${day.date.monthValue != currentMonth} ? ' bg-gray-50 text-gray-400' : ''">
+
+                <!-- numer dnia + podpis -->
                 <div class="flex justify-between items-center">
                     <div class="font-bold"
-                         th:classappend="${day.monthValue != currentMonth} ? ' text-gray-400' : ''"
-                         th:text="${day.dayOfMonth}">1</div>
+                         th:classappend="${day.date.monthValue != currentMonth} ? ' text-gray-400' : ''"
+                         th:text="${day.date.dayOfMonth}">1</div>
                     <div class="text-xs"
-                         th:classappend="${day.monthValue != currentMonth} ? ' text-gray-300' : ' text-gray-500'"
-                         th:text="${#temporals.format(day, 'dd.MM.yyyy')}">01.01.2025</div>
+                         th:classappend="${day.date.monthValue != currentMonth} ? ' text-gray-300' : ' text-gray-500'"
+                         th:text="${#temporals.format(day.date, 'dd.MM.yyyy')}">01.01.2025</div>
                 </div>
 
                 <!-- spotkania w tym dniu -->
                 <div class="mt-2 space-y-2">
-                    <div th:if="${meetingsByDate[day] != null}"
-                         th:each="meeting : ${meetingsByDate[day]}"
+                    <div th:each="meeting : ${day.meetings}"
                          class="bg-gray-50 border rounded p-2 shadow-sm"
-                         th:classappend="${day.monthValue != currentMonth} ? ' opacity-70' : ''">
+                         th:classappend="${day.date.monthValue != currentMonth} ? ' opacity-70' : ''">
                         <div class="text-sm font-semibold" th:text="${meeting.title}">Tytuł</div>
                         <div class="text-xs"
-                             th:classappend="${day.monthValue != currentMonth} ? ' text-gray-400' : ' text-gray-600'">
+                             th:classappend="${day.date.monthValue != currentMonth} ? ' text-gray-400' : ' text-gray-600'">
                             <span th:text="${#temporals.format(meeting.dateTime, 'HH:mm')}">12:00</span>
                             •
                             <span th:text="${meeting.location}">Sala A</span>
@@ -107,8 +106,7 @@
 
                         <!-- Szybki formularz komentarza -->
                         <div class="hidden mt-2" th:id="${'cmt-' + meeting.id}">
-                            <form action="/calendar/comment/add" method="post" class="space-y-2">
-                                <input type="hidden" name="meetingId" th:value="${meeting.id}" />
+                            <form th:action="@{|/meetings/${meeting.id}/comments|}" method="post" class="space-y-2">
                                 <textarea name="content" required rows="2"
                                           class="w-full border rounded px-2 py-1 text-sm"
                                           placeholder="Wpisz komentarz..."></textarea>
@@ -120,6 +118,10 @@
                                 </div>
                             </form>
                         </div>
+                    </div>
+
+                    <div th:if="${#lists.isEmpty(day.meetings)}" class="text-xs text-gray-400">
+                        <!-- brak spotkań tego dnia -->
                     </div>
                 </div>
             </td>

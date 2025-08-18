@@ -1,65 +1,11 @@
 package com.aplikacja.Aplikacja.firmowa.Model;
 
 import lombok.Builder;
-import java.time.LocalDateTime;
-import java.util.List;
+
 import javax.persistence.*;
-
-
-////this class is only for admin
-//@Entity
-//@Table(name="documents")
-//public class Document {
-//
-//    @Id
-//    @GeneratedValue
-//    @Column(name = "id")
-//    private Long id;
-//
-//    @Column(name = "title")
-//    private String title;
-//
-//    @Column(name = "description")
-//    private String description;
-//
-//    public Document(){
-//
-//    }
-//    @Builder
-//    public Document(String title, String description){
-//        this.title=title;
-//        this.description=description;
-//    }
-//
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public String getTitle() {
-//        return title;
-//    }
-//
-//    public void setTitle(String title) {
-//        this.title = title;
-//    }
-//
-//    public String getDescription() {
-//        return description;
-//    }
-//
-//    public void setDescription(String description) {
-//        this.description = description;
-//    }
-//    @Override
-//    public String toString(){
-//        return "Document [[id=" + id + ", title=" + title + ", desc=" +
-//                description+"]";
-//    }
-//}
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "documents")
@@ -85,6 +31,11 @@ public class Document {
     @Column(name = "file_path")
     private String filePath;
 
+    /** NOWE: typ pliku zgodny z Twoim enumem */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    private DocumentType type;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private DocumentStatus status = DocumentStatus.AKTYWNY;
@@ -98,12 +49,15 @@ public class Document {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Document() {
-    }
+    /** Relacja do komentarzy (kaskadowe usuwanie) */
+    @OneToMany(mappedBy = "document", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DocumentComment> comments = new ArrayList<>();
+
+    public Document() {}
 
     @Builder
     public Document(String title, String description, LocalDateTime created, String mimeType, String filePath,
-                    DocumentStatus status, List<String> tags, User user) {
+                    DocumentStatus status, List<String> tags, User user, DocumentType type) {
         this.title = title;
         this.description = description;
         this.created = created;
@@ -112,10 +66,10 @@ public class Document {
         this.status = status;
         this.tags = tags;
         this.user = user;
+        this.type = type;
     }
 
-    // === Gettery i Settery ===
-
+    // === gettery / settery ===
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -134,6 +88,9 @@ public class Document {
     public String getFilePath() { return filePath; }
     public void setFilePath(String filePath) { this.filePath = filePath; }
 
+    public DocumentType getType() { return type; }
+    public void setType(DocumentType type) { this.type = type; }
+
     public DocumentStatus getStatus() { return status; }
     public void setStatus(DocumentStatus status) { this.status = status; }
 
@@ -142,6 +99,9 @@ public class Document {
 
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
+
+    public List<DocumentComment> getComments() { return comments; }
+    public void setComments(List<DocumentComment> comments) { this.comments = comments; }
 
     @Override
     public String toString() {
