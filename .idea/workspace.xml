@@ -4,13 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f55d2bdd-bc05-4465-adb1-94abfd5dec11" name="Changes" comment="Działa cały administrator.&#10;1. Mozliwośc dodawania dokumentów, edycja,usuwanie, komentowanie.&#10;2. Dokumentów są różnego typu&#10;3. Zarządzanie użytkownikami.&#10;4. Historia logowania. Możliwość jej czyszczenia. Na głównym dashboardzie widać ostatnich 5 logowań&#10;5. Kalendarz spotkań. Wydarzenia widać w siatce kalendarza. Można je tam edytować usuwać, komentować. Na dashboardzie widać kilka spotkań  ich statusy oraz do kogo są przypisane">
+    <list default="true" id="f55d2bdd-bc05-4465-adb1-94abfd5dec11" name="Changes" comment="Poprawiono wygląd strony głównej aplikacji i wstawiono logo">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/ManagerDocumentsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/DocumentPermission.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/manager_documents.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/ManagerViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/ManagerViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/MeetingPermission.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/MeetingPermission.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/calendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/calendar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/manager_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/manager_dashboard.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +24,7 @@
       <list>
         <option value="Enum" />
         <option value="Interface" />
+        <option value="HTML File" />
         <option value="Class" />
       </list>
     </option>
@@ -57,45 +60,59 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.AplikacjaFirmowaApplication.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.AplikacjaFirmowaApplication.executor": "Run",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/hrabi/IdeaProjects/Aplikacja-firmowa",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "configurable.group.language",
-    "show.migrate.to.gradle.popup": "false",
-    "ts.external.directory.path": "C:\\Users\\Admin\\IdeaProjects\\Aplikacja-firmowa\\src\\main\\resources\\frontend\\angular-app\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.AplikacjaFirmowaApplication.executor&quot;: &quot;Run&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.AplikacjaFirmowaApplication.executor&quot;: &quot;Run&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/hrabi/IdeaProjects/Aplikacja-firmowa&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Admin\\IdeaProjects\\Aplikacja-firmowa\\src\\main\\resources\\frontend\\angular-app\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\hrabi\IdeaProjects\Aplikacja-firmowa\src\main\resources\static\css\css" />
       <recent name="C:\Users\Admin\IdeaProjects\Aplikacja-firmowa\src\main\resources\static\css\css" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.AplikacjaFirmowaApplication">
+    <configuration name="AplikacjaFirmowaApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.aplikacja.Aplikacja.firmowa.AplikacjaFirmowaApplication" />
+      <module name="Aplikacja-firmowa" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.aplikacja.Aplikacja.firmowa.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="AplikacjaFirmowaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="openjdk-24" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -106,6 +123,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.AplikacjaFirmowaApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -314,7 +336,15 @@
       <option name="project" value="LOCAL" />
       <updated>1755499169973</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Poprawiono wygląd strony głównej aplikacji i wstawiono logo">
+      <option name="closed" value="true" />
+      <created>1755506399176</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1755506399176</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -338,7 +368,8 @@
     <MESSAGE value="Zrobiono:&#10;Od teraz działa kalendarz i istnieje możliwość dodawania wydarzeń (meetings)&#10;Administrator widzi te wydarzenia w swoim głównym panelu&#10;&#10;Trwa próba zaintegrowania widoczności spotkań w siatce kalendarza. &#10;trwa próba dodania opcji edycji i usuwania spotkań" />
     <MESSAGE value="1. Listenery - podgląd na użytkowników, któzy się logują i wylogowują w danym momencie. aby to działało został odpowiednio zmieniony plik SecurityConfig, oraz dodano odpowiedni Serwis i repozytorium&#10;2. Dodano Panele widokowe dla pozostałych użytkowników ( wymaga dopracowania później).&#10;3. Możliwość dodawania i przypisywania spotkań do konkretnego usera działa zarówno w bazie danych jak i na stronie. &#10;4. Działa możliwośc usuwania i edytowania spotkań.&#10;5. Działa sidebar do historii logowania, gdzie można usuwać rekordy. jest to też kompatybilne z bazą danych.&#10;6. AdminDashboard został zmieniony i teraz automatycznie po zalogowaniu na konto admina jesteśmy przenoszeni na /extended.&#10;7 Przetestowano czy zwykły user może dodawać eventy (stopień podstawowy)&#10;8. Większe rozłożenie uprawnień dla poszczególnych roli.&#10;&#10;P.S. większośc testów wykonywana na koncie administratora, ponieważ na razie chcę doprecyzować starannie jego funkcje" />
     <MESSAGE value="Działa cały administrator.&#10;1. Mozliwośc dodawania dokumentów, edycja,usuwanie, komentowanie.&#10;2. Dokumentów są różnego typu&#10;3. Zarządzanie użytkownikami.&#10;4. Historia logowania. Możliwość jej czyszczenia. Na głównym dashboardzie widać ostatnich 5 logowań&#10;5. Kalendarz spotkań. Wydarzenia widać w siatce kalendarza. Można je tam edytować usuwać, komentować. Na dashboardzie widać kilka spotkań  ich statusy oraz do kogo są przypisane" />
-    <option name="LAST_COMMIT_MESSAGE" value="Działa cały administrator.&#10;1. Mozliwośc dodawania dokumentów, edycja,usuwanie, komentowanie.&#10;2. Dokumentów są różnego typu&#10;3. Zarządzanie użytkownikami.&#10;4. Historia logowania. Możliwość jej czyszczenia. Na głównym dashboardzie widać ostatnich 5 logowań&#10;5. Kalendarz spotkań. Wydarzenia widać w siatce kalendarza. Można je tam edytować usuwać, komentować. Na dashboardzie widać kilka spotkań  ich statusy oraz do kogo są przypisane" />
+    <MESSAGE value="Poprawiono wygląd strony głównej aplikacji i wstawiono logo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Poprawiono wygląd strony głównej aplikacji i wstawiono logo" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

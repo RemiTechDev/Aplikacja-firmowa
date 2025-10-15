@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8" />
     <title>Kalendarz Spotkań</title>
@@ -17,8 +18,23 @@
         </h1>
 
         <div class="flex items-center gap-2">
+            <!-- Dynamiczny powrót zależnie od roli -->
             <a href="/admin/dashboard/extended"
+               sec:authorize="hasRole('ADMIN_ROLE')"
                class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-1 px-3 rounded">⟵ Powrót do panelu</a>
+
+            <a href="/manager/dashboard"
+               sec:authorize="hasRole('MANAGER_ROLE')"
+               class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-1 px-3 rounded">⟵ Powrót do panelu</a>
+
+            <a href="/staff/dashboard"
+               sec:authorize="hasRole('STAFF_ROLE')"
+               class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-1 px-3 rounded">⟵ Powrót do panelu</a>
+
+            <a href="/dashboard"
+               sec:authorize="hasRole('USER_ROLE') and !hasRole('STAFF_ROLE') and !hasRole('MANAGER_ROLE') and !hasRole('ADMIN_ROLE')"
+               class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-1 px-3 rounded">⟵ Powrót do panelu</a>
+
             <a href="/calendar?prev" class="bg-blue-100 text-blue-800 py-1 px-2 rounded hover:bg-blue-200">&larr; Poprzedni</a>
             <a href="/calendar?next" class="bg-blue-100 text-blue-800 py-1 px-2 rounded hover:bg-blue-200">Następny &rarr;</a>
         </div>
@@ -104,9 +120,13 @@
                                class="text-gray-700 hover:underline">💬 Komentuj</a>
                         </div>
 
-                        <!-- Szybki formularz komentarza -->
+                        <!-- Szybki formularz komentarza (z CSRF) -->
                         <div class="hidden mt-2" th:id="${'cmt-' + meeting.id}">
                             <form th:action="@{|/meetings/${meeting.id}/comments|}" method="post" class="space-y-2">
+                                <input type="hidden"
+                                       th:if="${_csrf != null}"
+                                       th:name="${_csrf.parameterName}"
+                                       th:value="${_csrf.token}"/>
                                 <textarea name="content" required rows="2"
                                           class="w-full border rounded px-2 py-1 text-sm"
                                           placeholder="Wpisz komentarz..."></textarea>
@@ -135,6 +155,11 @@
     <div class="bg-white p-6 rounded shadow-lg w-96">
         <h3 class="text-lg font-semibold mb-4">Nowe Spotkanie</h3>
         <form action="/meetings/add" method="post" class="space-y-3">
+            <input type="hidden"
+                   th:if="${_csrf != null}"
+                   th:name="${_csrf.parameterName}"
+                   th:value="${_csrf.token}"/>
+
             <label class="block text-sm">Tytuł:
                 <input type="text" name="title" required class="w-full border p-2 rounded"/>
             </label>

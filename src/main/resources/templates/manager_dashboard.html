@@ -1,11 +1,168 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="${title}">Panel Managera</title>
     <meta charset="UTF-8">
+    <title>Panel Menedżera</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8fafc; }
+        .sidebar { height: 100vh; background-color: #1e293b; color: white; }
+        .sidebar a { color: white; text-decoration: none; }
+        .sidebar a:hover { text-decoration: underline; }
+        .card-icon { font-size: 2rem; }
+    </style>
 </head>
 <body>
-<h1>Witaj w panelu Managera!</h1>
-<p>Tu będą funkcje dostępne tylko dla roli MANAGER.</p>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-2 sidebar d-flex flex-column p-3">
+            <div class="mb-4"><h5>👤 Menedżer</h5></div>
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item"><a href="/manager/dashboard" class="nav-link">📊 Dashboard</a></li>
+                <li class="nav-item"><a href="/manager/documents" class="nav-link">📂 Dokumenty</a></li>
+                <li class="nav-item"><a href="/calendar" class="nav-link">🗓️ Kalendarz</a></li>
+                <li class="nav-item"><a href="/logout" class="nav-link">🚪 Wyloguj</a></li>
+            </ul>
+        </div>
+
+        <!-- Main -->
+        <div class="col-md-10 p-4">
+            <h2 class="mb-4">Panel Menedżera</h2>
+
+            <!-- Karty -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <div class="card shadow-sm p-3">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <div class="card-icon text-warning"><i class="bi bi-folder-fill"></i></div>
+                                <h5>Dokumenty</h5>
+                                <small>Przeglądaj i komentuj</small>
+                            </div>
+                            <div class="align-self-center">
+                                <a href="/manager/documents" class="btn btn-sm btn-outline-primary">Otwórz</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card shadow-sm p-3">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <div class="card-icon text-info"><i class="bi bi-calendar-event-fill"></i></div>
+                                <h5>Kalendarz spotkań</h5>
+                                <small>Podgląd / planowanie</small>
+                            </div>
+                            <div class="align-self-center">
+                                <a href="/calendar" class="btn btn-sm btn-outline-primary">Otwórz</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Zbliżające się spotkania -->
+            <h4>📅 Zbliżające się spotkania</h4>
+            <div class="table-responsive mb-4">
+                <table class="table table-bordered align-middle bg-white">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Data</th>
+                        <th>Tytuł</th>
+                        <th>Opis</th>
+                        <th>Status</th>
+                        <th>Przypisane do</th>
+                        <th style="width: 220px;">Akcje</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="m : ${upcomingMeetings}">
+                        <td th:text="${#temporals.format(m.dateTime,'yyyy-MM-dd HH:mm')}">2025-08-01 10:00</td>
+                        <td th:text="${m.title}">Tytuł</td>
+                        <td th:text="${m.description}">Opis</td>
+                        <td>
+                            <span class="badge"
+                                  th:classappend="${
+                                      m.status != null && m.status.name() == 'PLANOWANE'    ? ' bg-info' :
+                                      m.status != null && m.status.name() == 'ZREALIZOWANE' ? ' bg-success' :
+                                      m.status != null && m.status.name() == 'ODWOŁANE'     ? ' bg-danger' :
+                                      ' bg-secondary'
+                                  }"
+                                  th:text="${m.status != null ? m.status : '—'}">PLANOWANE</span>
+                        </td>
+                        <td th:text="${m.user != null ? m.user.firstName + ' ' + m.user.lastName : '—'}">—</td>
+                        <td>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <a class="btn btn-outline-primary" th:href="@{'/meetings/edit/' + ${m.id}}">
+                                    <i class="bi bi-pencil-square"></i> Edytuj
+                                </a>
+                                <a class="btn btn-outline-danger"
+                                   th:href="@{'/meetings/delete/' + ${m.id}}"
+                                   onclick="return confirm('Usunąć spotkanie?');">
+                                    <i class="bi bi-trash"></i> Usuń
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(upcomingMeetings)}">
+                        <td colspan="6" class="text-center text-muted">Brak zaplanowanych spotkań</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Ostatnie dokumenty -->
+            <div class="d-flex justify-content-between align-items-center">
+                <h4>📁 Ostatnie dokumenty</h4>
+                <a href="/manager/documents" class="btn btn-sm btn-outline-primary">Zobacz wszystko</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle bg-white">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Tytuł</th>
+                        <th>Typ</th>
+                        <th>Status</th>
+                        <th>Wrzucił</th>
+                        <th>Data</th>
+                        <th style="width: 210px;">Akcje</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="d : ${latestDocuments}">
+                        <td><a th:href="@{'/documents/view/' + ${d.id}}" th:text="${d.title}">Nazwa</a></td>
+                        <td th:text="${d.type != null ? d.type : '—'}">PDF</td>
+                        <td>
+                            <span class="badge"
+                                  th:classappend="${
+                                     d.status != null && d.status.name() == 'AKTYWNY'       ? ' bg-success' :
+                                     d.status != null && d.status.name() == 'Z_POPRAWKAMI' ? ' bg-warning text-dark' :
+                                     d.status != null && d.status.name() == 'ARCHIWALNY'   ? ' bg-secondary' :
+                                     ' bg-light text-dark'
+                                  }"
+                                  th:text="${d.status != null ? d.status : '—'}">AKTYWNY</span>
+                        </td>
+                        <td th:text="${d.user != null ? d.user.firstName + ' ' + d.user.lastName : '—'}">—</td>
+                        <td th:text="${d.created != null ? #temporals.format(d.created,'yyyy-MM-dd HH:mm') : '—'}">2025-01-01 12:00</td>
+                        <td>
+                            <div class="d-flex flex-wrap gap-2">
+                                <a class="btn btn-sm btn-outline-primary" th:href="@{'/documents/view/' + ${d.id}}">Otwórz</a>
+                                <a class="btn btn-sm btn-outline-secondary" th:href="@{'/documents/edit/' + ${d.id}}">Edytuj</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(latestDocuments)}">
+                        <td colspan="6" class="text-center text-muted">Brak dokumentów</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
 </body>
 </html>
