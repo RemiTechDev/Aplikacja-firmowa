@@ -61,7 +61,7 @@ public class UserController {
     }
 
 
-    // Rejestracja działa, ale wynik ejst zwracany w konsoli jako JSON
+    // Rejestracja działa, ale wynik jest zwracany w konsoli jako JSON
     @PostMapping("/authorize/register")
     public ResponseEntity<?> registerNewAdmin(@Valid @RequestBody UserDto userDto,
     org.springframework.validation.BindingResult result) {

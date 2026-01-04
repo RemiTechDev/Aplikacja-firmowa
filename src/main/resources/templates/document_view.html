@@ -44,7 +44,8 @@
                 <div class="col-md-9" th:text="${doc.user != null ? doc.user.firstName + ' ' + doc.user.lastName : '—'}">—</div>
 
                 <div class="col-md-3"><strong>Utworzono:</strong></div>
-                <div class="col-md-9" th:text="${doc.created != null ? #temporals.format(doc.created,'yyyy-MM-dd HH:mm') : '—'}">2025-01-01 12:00</div>
+                <div class="col-md-9" th:text="${doc.created != null ? #temporals.format(doc.created,'yyyy-MM-dd HH:mm')
+                : '—'}">2025-01-01 12:00</div>
 
                 <div class="col-md-3"><strong>MIME:</strong></div>
                 <div class="col-md-9" th:text="${doc.mimeType != null ? doc.mimeType : '—'}">application/pdf</div>

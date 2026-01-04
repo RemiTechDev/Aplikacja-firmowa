@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.time.YearMonth;
@@ -29,15 +30,34 @@ public class CalendarController {
     private final UserRepository userRepository;
 
     @GetMapping("/calendar")
-    public String calendar(Model model, Principal principal) {
-        YearMonth ym = YearMonth.now();
-        YearMonth next = ym.plusMonths(1);
+    public String calendar(Model model,
+                           Principal principal,
+                           @RequestParam(value = "ym", required = false) String ymParam,
+                           @RequestParam(value = "prev", required = false) String prev,
+                           @RequestParam(value = "next", required = false) String next) {
+
+        // 1) Ustal miesiąc bazowy (domyślnie: teraz)
+        YearMonth ym;
+        try {
+            ym = (ymParam != null && !ymParam.isBlank()) ? YearMonth.parse(ymParam) : YearMonth.now();
+        } catch (Exception e) {
+            ym = YearMonth.now();
+        }
+
+        // 2) Obsłuż kliknięcia
+        if (prev != null) ym = ym.minusMonths(1);
+        if (next != null) ym = ym.plusMonths(1);
+
+        // 3) Wystaw ym do widoku (żeby linki działały)
+        model.addAttribute("ym", ym.toString()); // "YYYY-MM"
+
+        YearMonth nextMonth = ym.plusMonths(1);
         Locale pl = new Locale("pl", "PL");
 
         model.addAttribute("currentMonthName", ym.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, pl));
         model.addAttribute("currentYear", ym.getYear());
-        model.addAttribute("nextMonthName", next.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, pl));
-        model.addAttribute("nextYear", next.getYear());
+        model.addAttribute("nextMonthName", nextMonth.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, pl));
+        model.addAttribute("nextYear", nextMonth.getYear());
         model.addAttribute("currentMonth", ym.getMonthValue());
 
         String username = (principal != null) ? principal.getName() : null;
@@ -50,6 +70,8 @@ public class CalendarController {
                     .stream()
                     .map(r -> r.getName().name())
                     .collect(Collectors.toSet());
+        } else {
+            model.addAttribute("notLoggedIn", true);
         }
 
         List<Meeting> meetings;
@@ -59,10 +81,9 @@ public class CalendarController {
             meetings = meetingRepository.findByUser_Login(username);
         } else {
             meetings = List.of();
-            model.addAttribute("notLoggedIn", true);
         }
 
-        // tu korzystamy z CalendarDayDto
+        // grid na podstawie WYBRANEGO ym (nie YearMonth.now())
         List<List<CalendarDayDto>> grid = calendarService.buildCalendarWithMeetings(ym, meetings);
         model.addAttribute("grid", grid);
 

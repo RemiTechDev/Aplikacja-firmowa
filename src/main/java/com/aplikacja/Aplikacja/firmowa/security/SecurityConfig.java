@@ -82,7 +82,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/manager/**").hasAuthority("ROLE_MANAGER_ROLE")
                 .antMatchers("/staff/**").hasAuthority("ROLE_STAFF_ROLE")
-                .antMatchers("/dashboard").hasAuthority("ROLE_USER_ROLE")
+//                .antMatchers("/dashboard").hasAuthority("ROLE_USER_ROLE")
+                .antMatchers("/user/**").hasAuthority("ROLE_USER_ROLE")
+
 
                 .antMatchers(
                         "/", "/calendar", "/login", "/register", "/user/authorize/**", "/about", "/error",
@@ -139,8 +141,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 } else if (roles.contains("ROLE_STAFF_ROLE")) {
                     response.sendRedirect("/staff/dashboard");
                 } else {
-                    response.sendRedirect("/dashboard");
-                }
+                    response.sendRedirect("/user/dashboard");                }
             }
         };
     }

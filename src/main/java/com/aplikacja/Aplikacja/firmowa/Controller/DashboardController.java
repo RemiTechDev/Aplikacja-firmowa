@@ -17,6 +17,8 @@ public class DashboardController {
 
     @GetMapping("/dashboard")
     public String dashboard(Model model, Principal principal) {
+        if (principal == null) return "redirect:/login";
+
         model.addAttribute("docCount", documentRepository.countByUser_Login(principal.getName()));
         model.addAttribute("meetingCount", meetingRepository.countByUser_LoginAndToday(principal.getName()));
         return "index";

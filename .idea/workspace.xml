@@ -4,15 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f55d2bdd-bc05-4465-adb1-94abfd5dec11" name="Changes" comment="Poprawiono wygląd strony głównej aplikacji i wstawiono logo">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/ManagerDocumentsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/DocumentPermission.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/manager_documents.html" afterDir="false" />
+    <list default="true" id="f55d2bdd-bc05-4465-adb1-94abfd5dec11" name="Changes" comment="Wprowadzenie modyfikacji w kodzie, które umożliwiają tworzenie spotkań jako menadżer w kalendarzu (działa)&#10;Bugi:&#10;1. pojawił się podwójny przycisk powrotu w kalendarzu na koncie menadżera&#10;2. menadżer powinien móc usuwać wydarzenia, lub zmieniać status.&#10;3. menadżer ma możliwość dodawania swoich dokumentów też, ale funkcja ta na razie zginęła">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Config/GlobalAccessDeniedHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/PanelRedirectController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/UserViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/staff_documents.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/user_dashboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/user_documents.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/AdminViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/AdminViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/CalendarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/CalendarController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/DashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/DocumentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/DocumentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/ManagerViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/ManagerViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/MeetingEditController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/MeetingEditController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/StaffViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/StaffViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/DocumentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/DocumentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/MeetingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/Repositories/MeetingRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/MeetingPermission.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/MeetingPermission.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aplikacja/Aplikacja/firmowa/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/calendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/calendar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/manager_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/manager_dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/document_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/document_edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/document_view.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/document_view.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/manager_documents.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/manager_documents.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/staff_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/staff_dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/calendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/calendar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -344,7 +363,15 @@
       <option name="project" value="LOCAL" />
       <updated>1755506399176</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Wprowadzenie modyfikacji w kodzie, które umożliwiają tworzenie spotkań jako menadżer w kalendarzu (działa)&#10;Bugi:&#10;1. pojawił się podwójny przycisk powrotu w kalendarzu na koncie menadżera&#10;2. menadżer powinien móc usuwać wydarzenia, lub zmieniać status.&#10;3. menadżer ma możliwość dodawania swoich dokumentów też, ale funkcja ta na razie zginęła">
+      <option name="closed" value="true" />
+      <created>1760519721821</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1760519721821</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -369,7 +396,8 @@
     <MESSAGE value="1. Listenery - podgląd na użytkowników, któzy się logują i wylogowują w danym momencie. aby to działało został odpowiednio zmieniony plik SecurityConfig, oraz dodano odpowiedni Serwis i repozytorium&#10;2. Dodano Panele widokowe dla pozostałych użytkowników ( wymaga dopracowania później).&#10;3. Możliwość dodawania i przypisywania spotkań do konkretnego usera działa zarówno w bazie danych jak i na stronie. &#10;4. Działa możliwośc usuwania i edytowania spotkań.&#10;5. Działa sidebar do historii logowania, gdzie można usuwać rekordy. jest to też kompatybilne z bazą danych.&#10;6. AdminDashboard został zmieniony i teraz automatycznie po zalogowaniu na konto admina jesteśmy przenoszeni na /extended.&#10;7 Przetestowano czy zwykły user może dodawać eventy (stopień podstawowy)&#10;8. Większe rozłożenie uprawnień dla poszczególnych roli.&#10;&#10;P.S. większośc testów wykonywana na koncie administratora, ponieważ na razie chcę doprecyzować starannie jego funkcje" />
     <MESSAGE value="Działa cały administrator.&#10;1. Mozliwośc dodawania dokumentów, edycja,usuwanie, komentowanie.&#10;2. Dokumentów są różnego typu&#10;3. Zarządzanie użytkownikami.&#10;4. Historia logowania. Możliwość jej czyszczenia. Na głównym dashboardzie widać ostatnich 5 logowań&#10;5. Kalendarz spotkań. Wydarzenia widać w siatce kalendarza. Można je tam edytować usuwać, komentować. Na dashboardzie widać kilka spotkań  ich statusy oraz do kogo są przypisane" />
     <MESSAGE value="Poprawiono wygląd strony głównej aplikacji i wstawiono logo" />
-    <option name="LAST_COMMIT_MESSAGE" value="Poprawiono wygląd strony głównej aplikacji i wstawiono logo" />
+    <MESSAGE value="Wprowadzenie modyfikacji w kodzie, które umożliwiają tworzenie spotkań jako menadżer w kalendarzu (działa)&#10;Bugi:&#10;1. pojawił się podwójny przycisk powrotu w kalendarzu na koncie menadżera&#10;2. menadżer powinien móc usuwać wydarzenia, lub zmieniać status.&#10;3. menadżer ma możliwość dodawania swoich dokumentów też, ale funkcja ta na razie zginęła" />
+    <option name="LAST_COMMIT_MESSAGE" value="Wprowadzenie modyfikacji w kodzie, które umożliwiają tworzenie spotkań jako menadżer w kalendarzu (działa)&#10;Bugi:&#10;1. pojawił się podwójny przycisk powrotu w kalendarzu na koncie menadżera&#10;2. menadżer powinien móc usuwać wydarzenia, lub zmieniać status.&#10;3. menadżer ma możliwość dodawania swoich dokumentów też, ale funkcja ta na razie zginęła" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

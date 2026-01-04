@@ -3,11 +3,14 @@ package com.aplikacja.Aplikacja.firmowa.Controller;
 import com.aplikacja.Aplikacja.firmowa.Repositories.DocumentRepository;
 import com.aplikacja.Aplikacja.firmowa.Repositories.MeetingRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.time.LocalDateTime;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,7 +23,8 @@ public class ManagerViewController {
 
     @GetMapping({"/dashboard", "/dashboard/extended"})
     public String managerDashboard(Model model) {
-        model.addAttribute("upcomingMeetings", meetingRepository.findTop5ByOrderByDateTimeAsc());
+        model.addAttribute("upcomingMeetings",
+                meetingRepository.findUpcoming(LocalDateTime.now(), PageRequest.of(0, 5)));
         model.addAttribute("latestDocuments", documentRepository.findTop2ByOrderByCreatedDesc());
         return "manager_dashboard";
     }

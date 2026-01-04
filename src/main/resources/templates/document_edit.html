@@ -7,25 +7,51 @@
 </head>
 <body class="bg-light">
 <div class="container py-4">
-    <h3>Edycja dokumentu</h3>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">Edycja dokumentu</h3>
+
+        <!-- Szybki powrót (zawsze działa) -->
+        <a th:href="${back != null ? back : '/panel'}" class="btn btn-sm btn-outline-secondary">
+            ⟵ Wróć do dokumentów
+        </a>
+    </div>
+
     <form th:action="@{/documents/edit}" method="post" class="card p-3">
+        <!-- CSRF -->
+        <input type="hidden"
+               th:if="${_csrf != null}"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}"/>
+
         <input type="hidden" name="id" th:value="${doc.id}">
+
+        <!-- ✅ kluczowe: po zapisie wróć tam, skąd przyszedłeś -->
+        <input type="hidden" name="redirectTo" th:value="${back != null ? back : '/panel'}"/>
+
         <div class="mb-3">
             <label class="form-label">Tytuł</label>
             <input class="form-control" name="title" th:value="${doc.title}" required>
         </div>
+
         <div class="mb-3">
             <label class="form-label">Status</label>
             <select class="form-select" name="status">
                 <option th:each="s : ${T(com.aplikacja.Aplikacja.firmowa.Model.DocumentStatus).values()}"
-                        th:value="${s}" th:text="${s}" th:selected="${s == doc.status}"></option>
+                        th:value="${s}"
+                        th:text="${s}"
+                        th:selected="${s == doc.status}">
+                </option>
             </select>
         </div>
+
         <div class="text-end">
-            <a href="/admin/documents" class="btn btn-outline-secondary">Anuluj</a>
+            <!-- ✅ Anuluj wraca do back -->
+            <a th:href="${back != null ? back : '/panel'}" class="btn btn-outline-secondary">Anuluj</a>
             <button class="btn btn-primary" type="submit">Zapisz</button>
         </div>
     </form>
+
 </div>
 </body>
 </html>
